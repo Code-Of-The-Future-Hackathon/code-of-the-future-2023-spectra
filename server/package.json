@@ -1,0 +1,36 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "prisma": {
+      "seed": "node --require esbuild-register prisma/seed.ts"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "nodemon index.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@types/bcrypt": "^5.0.0",
+      "@types/cors": "^2.8.13",
+      "@types/express": "^4.17.17",
+      "@types/node": "^18.15.3",
+      "esbuild-register": "^3.4.2",
+      "nodemon": "^3.0.1",
+      "prisma": "^4.11.0",
+      "ts-node": "^10.9.1",
+      "typescript": "^4.9.5"
+    },
+    "dependencies": {
+      "@prisma/client": "^4.12.0",
+      "bcrypt": "^5.1.0",
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2",
+      "express-validator": "^6.15.0",
+      "prisma-client": "^0.0.0",
+      "validator": "^13.9.0"
+    }
+  }
