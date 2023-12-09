@@ -305,7 +305,7 @@ userRouter.post(
                 return response.status(401).json('Authentication failed');
             }
 
-            const token = await generateToken(user.id, user.email);
+            const token = await generateToken(user.id, user.email + Date.now());
             return response.status(200).json({ ...user, token });
         } catch (error: any) {
             return response.status(500).json(error.message);
