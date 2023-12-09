@@ -8,10 +8,13 @@ def main():
     # Set to false to scrape doctors
     scrape_medicine = False
 
+    save_images = False
+    testing = False
+
     json_manager.setup(scrape_medicine)
     
     if scrape_medicine:
-        subar.scrape_products()
+        subar.scrape_products(save_images, testing)
     else:
         doctor.scrape_doctors()
 

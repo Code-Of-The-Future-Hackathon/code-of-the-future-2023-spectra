@@ -3,12 +3,16 @@ import json
 medicines = []
 doctors = []
 
-def add_product_to_medicines(title, image, text):
+INDENTATION = 0
+
+def add_product_to_medicines(title, image, text, save_images):
     new_product = {
         'name': title,
-        'image': image,
         'description': text
     }
+
+    if save_images:
+        new_product['image'] = image
 
     medicines.append(new_product)
 
@@ -37,4 +41,4 @@ def load(scrape_medicine):
     data_to_dump = medicines if scrape_medicine else doctors
 
     with open(file_to_dump, 'w+', encoding='utf-8') as json_file:
-        json.dump(data_to_dump, json_file, ensure_ascii=False, indent=4)
+        json.dump(data_to_dump, json_file, ensure_ascii=False, indent=INDENTATION)
