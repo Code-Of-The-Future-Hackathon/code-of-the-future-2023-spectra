@@ -12,7 +12,7 @@ const routes = Router();
 
 routes.use('/allergies', allergyRouter);
 routes.use('/categories', categoryRouter);
-routes.use('/clynicalIlnesses', clinicalIllnessRouter);
+routes.use('/clinical-illnesses', clinicalIllnessRouter);
 routes.use('/forms', formRouter);
 routes.use('/pharmacies', pharmacyRouter);
 routes.use('/products', productRouter);
