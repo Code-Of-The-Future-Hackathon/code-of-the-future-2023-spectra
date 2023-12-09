@@ -80,10 +80,10 @@ def get_product_properties(url):
 
     images = soup.find_all('img')
 
-    # image = None
-    # for img in images:
-    #     if img.get('alt') == title:
-    #         image = f'{image_url}{img['src']}'
+    image = None
+    for img in images:
+        if img.get('alt') == title:
+            image = f'{image_url}{img['src']}'
 
     text_div = soup.find_all('div', class_='text')[0]
     text = ''
@@ -92,8 +92,7 @@ def get_product_properties(url):
 
     text = text[:max_char_limit]
 
-    # return (title, image, text)
-    return (title, text)
+    return (title, image, text)
 
 def scrape_products():
     scrape_products_links()
@@ -101,4 +100,4 @@ def scrape_products():
     for i in range(len(links)):
         properties = get_product_properties(links[i])
         print(f'SUBAR ({i + 1}/{len(links)}) : {properties[0]}')
-        json_manager.add_product_to_medicines(properties[0], properties[1])
+        json_manager.add_product_to_medicines(properties[0], properties[1], properties[2])

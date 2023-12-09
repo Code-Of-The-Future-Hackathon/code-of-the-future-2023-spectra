@@ -3,9 +3,10 @@ import json
 medicines = []
 doctors = []
 
-def add_product_to_medicines(title, text):
+def add_product_to_medicines(title, image, text):
     new_product = {
         'name': title,
+        'image': image,
         'description': text
     }
 

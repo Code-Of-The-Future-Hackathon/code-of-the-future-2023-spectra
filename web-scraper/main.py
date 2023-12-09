@@ -6,7 +6,7 @@ import doctor
 def main():
     # Set to true to scrape medicine
     # Set to false to scrape doctors
-    scrape_medicine = True
+    scrape_medicine = False
 
     json_manager.setup(scrape_medicine)
     
