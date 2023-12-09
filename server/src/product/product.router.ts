@@ -28,13 +28,13 @@ export const productRouter = express.Router();
  *             example:
  *               - id: "1"
  *                 name: "Product A"
- *                 formId: 1
+ *                 formId: "1"
  *                 sideEffects: "Some side effects"
  *                 storage: "Store in a cool, dry place"
  *                 dosage: "Take one tablet daily"
  *                 ingredients: ["Ingredient A", "Ingredient B"]
  *                 contradictions: "Do not take if allergic"
- *                 categoryId: 1
+ *                 categoryId: "1"
  *                 createdAt: "2023-01-01T00:00:00Z"
  *                 updatedAt: "2023-01-01T00:00:00Z"
  */
@@ -69,13 +69,13 @@ productRouter.get('/', async (request: Request, response: Response) => {
  *             example:
  *               id: "1"
  *               name: "Product A"
- *               formId: 1
+ *               formId: "1"
  *               sideEffects: "Some side effects"
  *               storage: "Store in a cool, dry place"
  *               dosage: "Take one tablet daily"
  *               ingredients: ["Ingredient A", "Ingredient B"]
  *               contradictions: "Do not take if allergic"
- *               categoryId: 1
+ *               categoryId: "1"
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       404:
@@ -109,13 +109,13 @@ productRouter.get('/:id', async (request: Request, response: Response) => {
  *         application/json:
  *           example:
  *             name: "Product A"
- *             formId: 1
+ *             formId: "1"
  *             sideEffects: "Some side effects"
  *             storage: "Store in a cool, dry place"
  *             dosage: "Take one tablet daily"
  *             ingredients: ["Ingredient A", "Ingredient B"]
  *             contradictions: "Do not take if allergic"
- *             categoryId: 1
+ *             categoryId: "1"
  *     responses:
  *       201:
  *         description: Product created successfully
@@ -124,13 +124,13 @@ productRouter.get('/:id', async (request: Request, response: Response) => {
  *             example:
  *               id: "1"
  *               name: "Product A"
- *               formId: 1
+ *               formId: "1"
  *               sideEffects: "Some side effects"
  *               storage: "Store in a cool, dry place"
  *               dosage: "Take one tablet daily"
  *               ingredients: ["Ingredient A", "Ingredient B"]
  *               contradictions: "Do not take if allergic"
- *               categoryId: 1
+ *               categoryId: "1"
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       400:
@@ -139,13 +139,13 @@ productRouter.get('/:id', async (request: Request, response: Response) => {
 productRouter.post(
     '/',
     body('name').isString(),
-    body('formId').isNumeric(),
+    body('formId').isString(),
     body('sideEffects').isString(),
     body('storage').isString(),
     body('dosage').isString(),
     body('ingredients').isArray(),
     body('contradictions').isString(),
-    body('categoryId').isNumeric(),
+    body('categoryId').isString(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -184,13 +184,13 @@ productRouter.post(
  *         application/json:
  *           example:
  *             name: "Updated Product A"
- *             formId: 1
+ *             formId: "1"
  *             sideEffects: "Some updated side effects"
  *             storage: "Updated storage instructions"
  *             dosage: "Updated dosage instructions"
  *             ingredients: ["Updated Ingredient A", "Updated Ingredient B"]
  *             contradictions: "Updated contradictions"
- *             categoryId: 1
+ *             categoryId: "1"
  *     responses:
  *       200:
  *         description: Product updated successfully
@@ -199,13 +199,13 @@ productRouter.post(
  *             example:
  *               id: "1"
  *               name: "Updated Product A"
- *               formId: 1
+ *               formId: "1"
  *               sideEffects: "Some updated side effects"
  *               storage: "Updated storage instructions"
  *               dosage: "Updated dosage instructions"
  *               ingredients: ["Updated Ingredient A", "Updated Ingredient B"]
  *               contradictions: "Updated contradictions"
- *               categoryId: 1
+ *               categoryId: "1"
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-02T00:00:00Z"
  *       400:
@@ -216,13 +216,13 @@ productRouter.post(
 productRouter.put(
     '/:id',
     body('name').isString(),
-    body('formId').isNumeric(),
+    body('formId').isString(),
     body('sideEffects').isString(),
     body('storage').isString(),
     body('dosage').isString(),
     body('ingredients').isArray(),
     body('contradictions').isString(),
-    body('categoryId').isNumeric(),
+    body('categoryId').isString(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 

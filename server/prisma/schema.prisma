@@ -47,6 +47,7 @@ model Product {
   formId    String
   
   imgUrl    String?
+  barcode   String
   sideEffects String
   storage   String
   dosage    String
@@ -84,7 +85,6 @@ model Category {
 model Pharmacy {
   id        String      @id @default(uuid())
   name      String
-  address   String
   openTime  String
   closeTime String
   latitude Float

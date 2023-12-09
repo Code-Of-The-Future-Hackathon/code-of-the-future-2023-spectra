@@ -28,8 +28,6 @@ export const pharmacyRouter = express.Router();
  *             example:
  *               - id: "1"
  *                 name: "ABC Pharmacy"
- *                 formId: 1
- *                 address: "123 Main Street"
  *                 openTime: "08:00 AM"
  *                 closeTime: "06:00 PM"
  *                 latitude: 40.7128
@@ -68,8 +66,6 @@ pharmacyRouter.get('/', async (request: Request, response: Response) => {
  *             example:
  *               id: "1"
  *               name: "ABC Pharmacy"
- *               formId: 1
- *               address: "123 Main Street"
  *               openTime: "08:00 AM"
  *               closeTime: "06:00 PM"
  *               latitude: 40.7128
@@ -107,8 +103,6 @@ pharmacyRouter.get('/:id', async (request: Request, response: Response) => {
  *         application/json:
  *           example:
  *             name: "ABC Pharmacy"
- *             formId: 1
- *             address: "123 Main Street"
  *             openTime: "08:00 AM"
  *             closeTime: "06:00 PM"
  *             latitude: 40.7128
@@ -121,8 +115,6 @@ pharmacyRouter.get('/:id', async (request: Request, response: Response) => {
  *             example:
  *               id: "1"
  *               name: "ABC Pharmacy"
- *               formId: 1
- *               address: "123 Main Street"
  *               openTime: "08:00 AM"
  *               closeTime: "06:00 PM"
  *               latitude: 40.7128
@@ -135,12 +127,10 @@ pharmacyRouter.get('/:id', async (request: Request, response: Response) => {
 pharmacyRouter.post(
     '/',
     body('name').isString(),
-    body('formId').isNumeric(),
-    body('address').isString(),
     body('openTime').isString(),
     body('closeTime').isString(),
-    body('latitude').isNumeric(),
-    body('longitude').isNumeric(),
+    body('latitude').isFloat(),
+    body('longitude').isFloat(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -179,8 +169,6 @@ pharmacyRouter.post(
  *         application/json:
  *           example:
  *             name: "Updated ABC Pharmacy"
- *             formId: 1
- *             address: "123 Main Street"
  *             openTime: "09:00 AM"
  *             closeTime: "07:00 PM"
  *             latitude: 40.7128
@@ -193,8 +181,6 @@ pharmacyRouter.post(
  *             example:
  *               id: "1"
  *               name: "Updated ABC Pharmacy"
- *               formId: 1
- *               address: "123 Main Street"
  *               openTime: "09:00 AM"
  *               closeTime: "07:00 PM"
  *               latitude: 40.7128
@@ -210,11 +196,9 @@ pharmacyRouter.put(
     '/:id',
     body('name').isString(),
     body('formId').isNumeric(),
-    body('address').isString(),
-    body('openTime').isString(),
     body('closeTime').isString(),
-    body('latitude').isNumeric(),
-    body('longitude').isNumeric(),
+    body('latitude').isFloat(),
+    body('longitude').isFloat(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 

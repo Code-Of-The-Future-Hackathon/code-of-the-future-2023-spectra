@@ -3,7 +3,6 @@ import { db } from '../utils/db.server';
 type Pharmacy = {
     id: string;
     name: string;
-    address: string;
     openTime: string;
     closeTime: string;
     latitude: number;
@@ -15,7 +14,6 @@ export const listPharmacies = async (): Promise<Pharmacy[]> => {
         select: {
             id: true,
             name: true,
-            address: true,
             openTime: true,
             closeTime: true,
             latitude: true,
@@ -34,7 +32,6 @@ export const getPharmacy = async (id: string): Promise<Pharmacy | null> => {
         select: {
             id: true,
             name: true,
-            address: true,
             openTime: true,
             closeTime: true,
             latitude: true,
@@ -46,11 +43,10 @@ export const getPharmacy = async (id: string): Promise<Pharmacy | null> => {
 };
 
 export const createPharmacy = async (pharmacy: Omit<Pharmacy, 'id'>): Promise<Pharmacy> => {
-    const { name, address, openTime, closeTime, latitude, longitude} = pharmacy;
+    const { name, openTime, closeTime, latitude, longitude} = pharmacy;
     return db.pharmacy.create({
         data: {
             name,
-            address,
             openTime,
             closeTime,
             latitude,
@@ -59,7 +55,6 @@ export const createPharmacy = async (pharmacy: Omit<Pharmacy, 'id'>): Promise<Ph
         select: {
             id: true,
             name: true,
-            address: true,
             openTime: true,
             closeTime: true,
             latitude: true,
@@ -74,14 +69,13 @@ export const updatePharmacy = async (
     pharmacy: Omit<Pharmacy, 'id'>,
     id: string
 ): Promise<Pharmacy> => {
-    const { name, address, openTime, closeTime, latitude, longitude} = pharmacy;
+    const { name, openTime, closeTime, latitude, longitude} = pharmacy;
     return db.pharmacy.update({
         where: {
             id,
         },
         data: {
             name,
-            address,
             openTime,
             closeTime,
             latitude,
@@ -90,7 +84,6 @@ export const updatePharmacy = async (
         select: {
             id: true,
             name: true,
-            address: true,
             openTime: true,
             closeTime: true,
             latitude: true,

@@ -1,3 +1,4 @@
+
 import { db } from "../utils/db.server";
 
 type Product = {
@@ -5,6 +6,7 @@ type Product = {
     name: string;
     formId: string;
     imgUrl?: string | null;
+    barcode: string;
     sideEffects: string;
     storage: string;
     dosage: string;
@@ -20,6 +22,7 @@ export const listProducts = async (): Promise<Product[]> => {
             name: true,
             formId: true,
             imgUrl: true,
+            barcode: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -42,6 +45,7 @@ export const getProduct = async (id: string): Promise<Product | null> => {
             name: true,
             formId: true,
             imgUrl: true,
+            barcode: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -59,6 +63,7 @@ export const createProduct = async (product: Omit<Product, 'id'>): Promise<Produ
         name,
         formId,
         imgUrl,
+        barcode,
         sideEffects,
         storage,
         dosage,
@@ -71,6 +76,7 @@ export const createProduct = async (product: Omit<Product, 'id'>): Promise<Produ
             name,
             formId,
             imgUrl,
+            barcode,
             sideEffects,
             storage,
             dosage,
@@ -85,6 +91,7 @@ export const createProduct = async (product: Omit<Product, 'id'>): Promise<Produ
             name: true,
             formId: true,
             imgUrl: true,
+            barcode: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -105,6 +112,7 @@ export const updateProduct = async (
         name,
         formId,
         imgUrl,
+        barcode,
         sideEffects,
         storage,
         dosage,
@@ -120,6 +128,7 @@ export const updateProduct = async (
             name,
             formId,
             imgUrl,
+            barcode,
             sideEffects,
             storage,
             dosage,
@@ -133,6 +142,7 @@ export const updateProduct = async (
             id: true,
             name: true,
             formId: true,
+            barcode: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -152,4 +162,3 @@ export const deleteProduct = async (id: string): Promise<void> => {
         },
     });
 };
-
