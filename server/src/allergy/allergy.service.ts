@@ -4,8 +4,6 @@ type Allergy = {
     id: string;
     name: string;
     information: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listAllergies = async (): Promise<Allergy[]> => {
@@ -38,13 +36,11 @@ export const getAllergy = async (id: string): Promise<Allergy | null> => {
 export const createAllergy = async (
     allergy: Omit<Allergy, "id">
 ): Promise<Allergy> => {
-    const { name, information, createdAt, updatedAt } = allergy;
+    const { name, information} = allergy;
     return db.allergy.create({
         data: {
             name,
             information,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -60,7 +56,7 @@ export const updateAllergy = async (
     allergy: Omit<Allergy, "id">,
     id: string
 ): Promise<Allergy> => {
-    const { name, information, createdAt, updatedAt } = allergy;
+    const { name, information} = allergy;
     return db.allergy.update({
         where: {
             id,
@@ -68,8 +64,6 @@ export const updateAllergy = async (
         data: {
             name,
             information,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

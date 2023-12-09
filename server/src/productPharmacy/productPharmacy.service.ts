@@ -4,8 +4,6 @@ type ProductPharmacy = {
     id: string;
     productId: string;
     pharmacyId: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listProductPharmacies = async (): Promise<ProductPharmacy[]> => {
@@ -40,13 +38,11 @@ export const getProductPharmacy = async (
 export const createProductPharmacy = async (
     productPharmacy: Omit<ProductPharmacy, "id">
 ): Promise<ProductPharmacy> => {
-    const { productId, pharmacyId, createdAt, updatedAt } = productPharmacy;
+    const { productId, pharmacyId} = productPharmacy;
     return db.productPharmacy.create({
         data: {
             productId,
             pharmacyId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -62,7 +58,7 @@ export const updateProductPharmacy = async (
     productPharmacy: Omit<ProductPharmacy, "id">,
     id: string
 ): Promise<ProductPharmacy> => {
-    const { productId, pharmacyId, createdAt, updatedAt } = productPharmacy;
+    const { productId, pharmacyId} = productPharmacy;
     return db.productPharmacy.update({
         where: {
             id,
@@ -70,8 +66,6 @@ export const updateProductPharmacy = async (
         data: {
             productId,
             pharmacyId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

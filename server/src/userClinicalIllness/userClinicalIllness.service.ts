@@ -4,8 +4,6 @@ type UserClinicalIllness = {
     id: string;
     userId: string;
     clinicalIllnessId: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listUserClinicalIllnesses = async (): Promise<UserClinicalIllness[]> => {
@@ -40,13 +38,11 @@ export const getUserClinicalIllness = async (
 export const createUserClinicalIllness = async (
     userClinicalIllness: Omit<UserClinicalIllness, "id">
 ): Promise<UserClinicalIllness> => {
-    const { userId, clinicalIllnessId, createdAt, updatedAt } = userClinicalIllness;
+    const { userId, clinicalIllnessId} = userClinicalIllness;
     return db.userClinicalIllness.create({
         data: {
             userId,
             clinicalIllnessId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -62,7 +58,7 @@ export const updateUserClinicalIllness = async (
     userClinicalIllness: Omit<UserClinicalIllness, "id">,
     id: string
 ): Promise<UserClinicalIllness> => {
-    const { userId, clinicalIllnessId, createdAt, updatedAt } = userClinicalIllness;
+    const { userId, clinicalIllnessId} = userClinicalIllness;
     return db.userClinicalIllness.update({
         where: {
             id,
@@ -70,8 +66,6 @@ export const updateUserClinicalIllness = async (
         data: {
             userId,
             clinicalIllnessId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

@@ -4,8 +4,6 @@ type UserProduct = {
     id: string;
     userId: string;
     productId: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listUserProducts = async (): Promise<UserProduct[]> => {
@@ -40,13 +38,11 @@ export const getUserProduct = async (
 export const createUserProduct = async (
     userProduct: Omit<UserProduct, "id">
 ): Promise<UserProduct> => {
-    const { userId, productId, createdAt, updatedAt } = userProduct;
+    const { userId, productId} = userProduct;
     return db.userProduct.create({
         data: {
             userId,
             productId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -62,7 +58,7 @@ export const updateUserProduct = async (
     userProduct: Omit<UserProduct, "id">,
     id: string
 ): Promise<UserProduct> => {
-    const { userId, productId, createdAt, updatedAt } = userProduct;
+    const { userId, productId} = userProduct;
     return db.userProduct.update({
         where: {
             id,
@@ -70,8 +66,6 @@ export const updateUserProduct = async (
         data: {
             userId,
             productId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

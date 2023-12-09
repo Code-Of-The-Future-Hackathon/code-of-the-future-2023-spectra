@@ -4,8 +4,6 @@ type UserAlergy = {
     id: string;
     userId: string;
     allergyId: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listUserAllergies = async (): Promise<UserAlergy[]> => {
@@ -40,13 +38,11 @@ export const getUserAllergy = async (
 export const createUserAllergy = async (
     userAllergy: Omit<UserAlergy, "id">
 ): Promise<UserAlergy> => {
-    const { userId, allergyId, createdAt, updatedAt } = userAllergy;
+    const { userId, allergyId } = userAllergy;
     return db.userAlergy.create({
         data: {
             userId,
             allergyId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -62,7 +58,7 @@ export const updateUserAllergy = async (
     userAllergy: Omit<UserAlergy, "id">,
     id: string
 ): Promise<UserAlergy> => {
-    const { userId, allergyId, createdAt, updatedAt } = userAllergy;
+    const { userId, allergyId} = userAllergy;
     return db.userAlergy.update({
         where: {
             id,
@@ -70,8 +66,6 @@ export const updateUserAllergy = async (
         data: {
             userId,
             allergyId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

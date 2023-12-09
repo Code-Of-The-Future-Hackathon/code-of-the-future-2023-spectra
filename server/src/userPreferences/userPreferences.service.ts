@@ -5,8 +5,6 @@ type UserPreferences = {
     userId: string;
     dosage: string;
     time: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listUserPreferences = async (): Promise<UserPreferences[]> => {
@@ -41,14 +39,12 @@ export const getUserPreferences = async (id: string): Promise<UserPreferences | 
 export const createUserPreferences = async (
     userPreferences: Omit<UserPreferences, 'id'>
 ): Promise<UserPreferences> => {
-    const { userId, dosage, time, createdAt, updatedAt } = userPreferences;
+    const { userId, dosage, time} = userPreferences;
     return db.userPreferences.create({
         data: {
             userId,
             dosage,
             time,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -65,7 +61,7 @@ export const updateUserPreferences = async (
     userPreferences: Omit<UserPreferences, 'id'>,
     id: string
 ): Promise<UserPreferences> => {
-    const { userId, dosage, time, createdAt, updatedAt } = userPreferences;
+    const { userId, dosage, time} = userPreferences;
     return db.userPreferences.update({
         where: {
             id,
@@ -74,8 +70,6 @@ export const updateUserPreferences = async (
             userId,
             dosage,
             time,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

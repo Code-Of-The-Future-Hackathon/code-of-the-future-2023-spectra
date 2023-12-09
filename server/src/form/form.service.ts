@@ -4,8 +4,6 @@ import { db } from "../utils/db.server";
 type Form = {
     id: string;
     form: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listForms = async (): Promise<Form[]> => {
@@ -34,12 +32,10 @@ export const getForm = async (id: string): Promise<Form | null> => {
 };
 
 export const createForm = async (form: Omit<Form, "id">): Promise<Form> => {
-    const { form: formName, createdAt, updatedAt } = form;
+    const { form: formName} = form;
     return db.form.create({
         data: {
             form: formName,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -54,15 +50,13 @@ export const updateForm = async (
     form: Omit<Form, "id">,
     id: string
 ): Promise<Form> => {
-    const { form: formName, createdAt, updatedAt } = form;
+    const { form: formName} = form;
     return db.form.update({
         where: {
             id,
         },
         data: {
             form: formName,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

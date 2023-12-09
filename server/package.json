@@ -7,8 +7,7 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "ts-node ./src/index.ts",
-        "api": "ts-node ./swagger.ts"
+        "dev": "nodemon ./src/index.ts"
     },
     "keywords": [],
     "author": "",
@@ -31,6 +30,7 @@
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "express-validator": "^6.15.0",
+        "jsonwebtoken": "^9.0.2",
         "node": "^20.10.0",
         "prisma-client": "^0.0.0",
         "socketio": "^1.0.0",

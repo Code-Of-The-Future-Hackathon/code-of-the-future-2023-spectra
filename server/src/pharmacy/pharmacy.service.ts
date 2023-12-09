@@ -8,8 +8,6 @@ type Pharmacy = {
     closeTime: string;
     latitude: number;
     longitude: number;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listPharmacies = async (): Promise<Pharmacy[]> => {
@@ -48,7 +46,7 @@ export const getPharmacy = async (id: string): Promise<Pharmacy | null> => {
 };
 
 export const createPharmacy = async (pharmacy: Omit<Pharmacy, 'id'>): Promise<Pharmacy> => {
-    const { name, address, openTime, closeTime, latitude, longitude, createdAt, updatedAt } = pharmacy;
+    const { name, address, openTime, closeTime, latitude, longitude} = pharmacy;
     return db.pharmacy.create({
         data: {
             name,
@@ -57,8 +55,6 @@ export const createPharmacy = async (pharmacy: Omit<Pharmacy, 'id'>): Promise<Ph
             closeTime,
             latitude,
             longitude,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -78,7 +74,7 @@ export const updatePharmacy = async (
     pharmacy: Omit<Pharmacy, 'id'>,
     id: string
 ): Promise<Pharmacy> => {
-    const { name, address, openTime, closeTime, latitude, longitude, createdAt, updatedAt } = pharmacy;
+    const { name, address, openTime, closeTime, latitude, longitude} = pharmacy;
     return db.pharmacy.update({
         where: {
             id,
@@ -90,8 +86,6 @@ export const updatePharmacy = async (
             closeTime,
             latitude,
             longitude,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

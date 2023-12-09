@@ -10,15 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//user/admin
+enum Role{
+  USER
+  ADMIN
+}
+
 model User {
   id        String      @id @default(uuid())
   firstName String
   lastName  String
-  gender    String
-  age       Int
+  gender    String?
+  age       Int?
+  imgUrl    String?
+  payed     Boolean   @default(false)
 
   email     String   @unique
   password  String
+
+  role      Role     @default(USER)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -34,7 +45,8 @@ model Product {
 
   form      Form     @relation(fields: [formId], references: [id])
   formId    String
-
+  
+  imgUrl    String?
   sideEffects String
   storage   String
   dosage    String

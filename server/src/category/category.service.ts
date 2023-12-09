@@ -3,8 +3,6 @@ import { db } from "../utils/db.server";
 type Category = {
     id: string;
     category: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listCategories = async (): Promise<Category[]> => {
@@ -35,12 +33,10 @@ export const getCategory = async (id: string): Promise<Category | null> => {
 export const createCategory = async (
     category: Omit<Category, "id">
 ): Promise<Category> => {
-    const { category: categoryName, createdAt, updatedAt } = category;
+    const { category: categoryName } = category;
     return db.category.create({
         data: {
             category: categoryName,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
@@ -55,15 +51,13 @@ export const updateCategory = async (
     category: Omit<Category, "id">,
     id: string
 ): Promise<Category> => {
-    const { category: categoryName, createdAt, updatedAt } = category;
+    const { category: categoryName} = category;
     return db.category.update({
         where: {
             id,
         },
         data: {
             category: categoryName,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,

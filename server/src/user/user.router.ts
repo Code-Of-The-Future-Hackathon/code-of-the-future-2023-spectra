@@ -3,6 +3,8 @@ import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import * as userService from './user.service';
 import type { Request, Response } from 'express';
+import { comparePasswords } from '../utils/auth/hash';
+import { generateToken } from '../utils/auth/auth';
 
 export const userRouter = express.Router();
 
@@ -249,54 +251,64 @@ userRouter.delete('/:id', async (request: Request, response: Response) => {
 
 /**
  * @swagger
- * /users/decryptPassword:
+ * /users/login:
  *   post:
- *     summary: Decrypt a password
- *     description: Decrypt a hashed password and check if it matches the original password.
+ *     summary: User login
+ *     description: Authenticate a user.
  *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           example:
- *             hashedPassword: "$2b$10$..."  # Replace with an actual hashed password
+ *             email: "john.doe@example.com"
  *             password: "password123"
  *     responses:
  *       200:
- *         description: Password decrypted successfully
+ *         description: Authentication successful
  *         content:
  *           application/json:
  *             example:
- *               isMatch: true
- *       400:
- *         description: Invalid request body
+ *               id: "1"
+ *               firstName: "John"
+ *               lastName: "Doe"
+ *               email: "john.doe@example.com"
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-01T00:00:00Z"
+ *               token: "your-jwt-token"
+ *       401:
+ *         description: Authentication failed
  */
 userRouter.post(
-    '/decryptPassword',
-    body('hashedPassword').isString(),
+    '/login',
+    body('email').isString(),
     body('password').isString(),
-    async (request: Request, response: Response) => {
+    async (request, response) => {
         const errors = validationResult(request);
 
         if (!errors.isEmpty()) {
             return response.status(400).json({ errors: errors.array() });
         }
 
-        const { hashedPassword, password } = request.body;
+        const { email, password } = request.body;
 
         try {
-            const isMatch = await decryptPassword(hashedPassword, password);
-            return response.status(200).json({ isMatch });
+            const user = await userService.getUserById(email);
+
+            if (!user) {
+                return response.status(401).json('Authentication failed');
+            }
+
+            const passwordMatch = await comparePasswords(password, user.password);
+
+            if (!passwordMatch) {
+                return response.status(401).json('Authentication failed');
+            }
+
+            const token = await generateToken(user.id, user.email);
+            return response.status(200).json({ ...user, token });
         } catch (error: any) {
             return response.status(500).json(error.message);
         }
     }
 );
-
-async function decryptPassword(hashedPassword: string, password: string): Promise<boolean> {
-    try {
-        return await bcrypt.compare(password, hashedPassword);
-    } catch (error) {
-        throw new Error('Failed to decrypt password');
-    }
-}

@@ -4,14 +4,13 @@ type Product = {
     id: string;
     name: string;
     formId: string;
+    imgUrl?: string | null;
     sideEffects: string;
     storage: string;
     dosage: string;
     ingredients: string[];
     contradictions: string;
     categoryId: string;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 export const listProducts = async (): Promise<Product[]> => {
@@ -20,6 +19,7 @@ export const listProducts = async (): Promise<Product[]> => {
             id: true,
             name: true,
             formId: true,
+            imgUrl: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -41,6 +41,7 @@ export const getProduct = async (id: string): Promise<Product | null> => {
             id: true,
             name: true,
             formId: true,
+            imgUrl: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -57,19 +58,19 @@ export const createProduct = async (product: Omit<Product, 'id'>): Promise<Produ
     const {
         name,
         formId,
+        imgUrl,
         sideEffects,
         storage,
         dosage,
         ingredients,
         contradictions,
         categoryId,
-        createdAt,
-        updatedAt,
     } = product;
     return db.product.create({
         data: {
             name,
             formId,
+            imgUrl,
             sideEffects,
             storage,
             dosage,
@@ -78,13 +79,12 @@ export const createProduct = async (product: Omit<Product, 'id'>): Promise<Produ
             },
             contradictions,
             categoryId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
             name: true,
             formId: true,
+            imgUrl: true,
             sideEffects: true,
             storage: true,
             dosage: true,
@@ -104,14 +104,13 @@ export const updateProduct = async (
     const {
         name,
         formId,
+        imgUrl,
         sideEffects,
         storage,
         dosage,
         ingredients,
         contradictions,
         categoryId,
-        createdAt,
-        updatedAt,
     } = product;
     return db.product.update({
         where: {
@@ -120,6 +119,7 @@ export const updateProduct = async (
         data: {
             name,
             formId,
+            imgUrl,
             sideEffects,
             storage,
             dosage,
@@ -128,8 +128,6 @@ export const updateProduct = async (
             },
             contradictions,
             categoryId,
-            createdAt,
-            updatedAt,
         },
         select: {
             id: true,
