@@ -1,7 +1,6 @@
 import app from './utils/app';
 import routes from './utils/routes';
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1337;
 
 if (!process.env.PORT) {
     process.exit(1);

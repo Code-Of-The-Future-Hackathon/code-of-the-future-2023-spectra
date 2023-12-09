@@ -1,8 +1,8 @@
 import { db } from '../utils/db.server';
 
 type UserPreferences = {
-    id: number;
-    userId: number;
+    id: string;
+    userId: string;
     dosage: string;
     time: string;
     createdAt: Date;
@@ -22,7 +22,7 @@ export const listUserPreferences = async (): Promise<UserPreferences[]> => {
     });
 };
 
-export const getUserPreferences = async (id: number): Promise<UserPreferences | null> => {
+export const getUserPreferences = async (id: string): Promise<UserPreferences | null> => {
     return db.userPreferences.findUnique({
         where: {
             id,
@@ -63,7 +63,7 @@ export const createUserPreferences = async (
 
 export const updateUserPreferences = async (
     userPreferences: Omit<UserPreferences, 'id'>,
-    id: number
+    id: string
 ): Promise<UserPreferences> => {
     const { userId, dosage, time, createdAt, updatedAt } = userPreferences;
     return db.userPreferences.update({
@@ -88,7 +88,7 @@ export const updateUserPreferences = async (
     });
 };
 
-export const deleteUserPreferences = async (id: number): Promise<void> => {
+export const deleteUserPreferences = async (id: string): Promise<void> => {
     await db.userPreferences.delete({
         where: {
             id,

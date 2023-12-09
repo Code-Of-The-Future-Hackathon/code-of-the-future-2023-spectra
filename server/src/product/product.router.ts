@@ -5,7 +5,39 @@ import * as productService from './product.service';
 
 export const productRouter = express.Router();
 
-// GET: list of all products
+/**
+ * @swagger
+ * tags:
+ *   name: Products
+ *   description: API endpoints related to products
+ */
+
+
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Get a list of products
+ *     description: Retrieve a list of products.
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             example:
+ *               - id: "1"
+ *                 name: "Product A"
+ *                 formId: 1
+ *                 sideEffects: "Some side effects"
+ *                 storage: "Store in a cool, dry place"
+ *                 dosage: "Take one tablet daily"
+ *                 ingredients: ["Ingredient A", "Ingredient B"]
+ *                 contradictions: "Do not take if allergic"
+ *                 categoryId: 1
+ *                 createdAt: "2023-01-01T00:00:00Z"
+ *                 updatedAt: "2023-01-01T00:00:00Z"
+ */
 productRouter.get('/', async (request: Request, response: Response) => {
     try {
         const products = await productService.listProducts();
@@ -15,9 +47,42 @@ productRouter.get('/', async (request: Request, response: Response) => {
     }
 });
 
-// GET: a single product by id
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Get a single product by id
+ *     description: Retrieve a single product by its id.
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the product
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "Product A"
+ *               formId: 1
+ *               sideEffects: "Some side effects"
+ *               storage: "Store in a cool, dry place"
+ *               dosage: "Take one tablet daily"
+ *               ingredients: ["Ingredient A", "Ingredient B"]
+ *               contradictions: "Do not take if allergic"
+ *               categoryId: 1
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-01T00:00:00Z"
+ *       404:
+ *         description: Product not found
+ */
 productRouter.get('/:id', async (request: Request, response: Response) => {
-    const id: number = parseInt(request.params.id, 10);
+    const id = request.params.id;
 
     try {
         const product = await productService.getProduct(id);
@@ -31,7 +96,46 @@ productRouter.get('/:id', async (request: Request, response: Response) => {
     }
 });
 
-// POST: create a product
+/**
+ * @swagger
+ * /products:
+ *   post:
+ *     summary: Create a product
+ *     description: Create a new product.
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             name: "Product A"
+ *             formId: 1
+ *             sideEffects: "Some side effects"
+ *             storage: "Store in a cool, dry place"
+ *             dosage: "Take one tablet daily"
+ *             ingredients: ["Ingredient A", "Ingredient B"]
+ *             contradictions: "Do not take if allergic"
+ *             categoryId: 1
+ *     responses:
+ *       201:
+ *         description: Product created successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "Product A"
+ *               formId: 1
+ *               sideEffects: "Some side effects"
+ *               storage: "Store in a cool, dry place"
+ *               dosage: "Take one tablet daily"
+ *               ingredients: ["Ingredient A", "Ingredient B"]
+ *               contradictions: "Do not take if allergic"
+ *               categoryId: 1
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-01T00:00:00Z"
+ *       400:
+ *         description: Invalid request body
+ */
 productRouter.post(
     '/',
     body('name').isString(),
@@ -60,7 +164,55 @@ productRouter.post(
     }
 );
 
-// PUT: updating a product
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     summary: Update a product
+ *     description: Update an existing product by its id.
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the product
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             name: "Updated Product A"
+ *             formId: 1
+ *             sideEffects: "Some updated side effects"
+ *             storage: "Updated storage instructions"
+ *             dosage: "Updated dosage instructions"
+ *             ingredients: ["Updated Ingredient A", "Updated Ingredient B"]
+ *             contradictions: "Updated contradictions"
+ *             categoryId: 1
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "Updated Product A"
+ *               formId: 1
+ *               sideEffects: "Some updated side effects"
+ *               storage: "Updated storage instructions"
+ *               dosage: "Updated dosage instructions"
+ *               ingredients: ["Updated Ingredient A", "Updated Ingredient B"]
+ *               contradictions: "Updated contradictions"
+ *               categoryId: 1
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-02T00:00:00Z"
+ *       400:
+ *         description: Invalid request body
+ *       404:
+ *         description: Product not found
+ */
 productRouter.put(
     '/:id',
     body('name').isString(),
@@ -78,7 +230,7 @@ productRouter.put(
             return response.status(400).json({ errors: errors.array() });
         }
 
-        const id: number = parseInt(request.params.id, 10);
+        const id = request.params.id;
 
         try {
             const product = request.body;
@@ -91,9 +243,28 @@ productRouter.put(
     }
 );
 
-// DELETE: Delete a product based on the id
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     summary: Delete a product
+ *     description: Delete an existing product by its id.
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the product
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Product deleted successfully
+ *       404:
+ *         description: Product not found
+ */
 productRouter.delete('/:id', async (request: Request, response: Response) => {
-    const id: number = parseInt(request.params.id, 10);
+    const id = request.params.id;
 
     try {
         await productService.deleteProduct(id);

@@ -1,15 +1,15 @@
 import { db } from "../utils/db.server";
 
 type Product = {
-    id: number;
+    id: string;
     name: string;
-    formId: number;
+    formId: string;
     sideEffects: string;
     storage: string;
     dosage: string;
     ingredients: string[];
     contradictions: string;
-    categoryId: number;
+    categoryId: string;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -32,7 +32,7 @@ export const listProducts = async (): Promise<Product[]> => {
     });
 };
 
-export const getProduct = async (id: number): Promise<Product | null> => {
+export const getProduct = async (id: string): Promise<Product | null> => {
     return db.product.findUnique({
         where: {
             id,
@@ -99,7 +99,7 @@ export const createProduct = async (product: Omit<Product, 'id'>): Promise<Produ
 
 export const updateProduct = async (
     product: Omit<Product, 'id'>,
-    id: number
+    id: string
 ): Promise<Product> => {
     const {
         name,
@@ -147,7 +147,7 @@ export const updateProduct = async (
     });
 };
 
-export const deleteProduct = async (id: number): Promise<void> => {
+export const deleteProduct = async (id: string): Promise<void> => {
     await db.product.delete({
         where: {
             id,

@@ -11,14 +11,11 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   firstName String
   lastName  String
   gender    String
   age       Int
-
-  status    Status   @relation(fields: [statusId], references: [id])
-  statusId  Int
 
   email     String   @unique
   password  String
@@ -26,17 +23,17 @@ model User {
   updatedAt DateTime @updatedAt
 
   allergies UserAlergy[]
-  clynicalIlnesses UserClynicalIlness[]
+  clinicalIllness UserClinicalIllness[]
   preferences UserPreferences[]
   products UserProduct[]
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   name      String
 
   form      Form     @relation(fields: [formId], references: [id])
-  formId    Int
+  formId    String
 
   sideEffects String
   storage   String
@@ -48,14 +45,14 @@ model Product {
   updatedAt DateTime @updatedAt
 
   category  Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  categoryId String
 
   users     UserProduct[]
   pharmacies ProductPharmacy[]
 }
 
 model Form {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   form      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,7 +61,7 @@ model Form {
 }
 
 model Category {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   category  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -73,7 +70,7 @@ model Category {
 }
 
 model Pharmacy {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   name      String
   address   String
   openTime  String
@@ -87,25 +84,17 @@ model Pharmacy {
 }
 
 model UserPreferences {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
   dosage    String
   time      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Status {
-  id        Int      @id @default(autoincrement())
-  status    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  users     User[]
-}
-
 model Allergy {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   name   String
   information String
   createdAt DateTime @default(now())
@@ -114,54 +103,53 @@ model Allergy {
   users     UserAlergy[]
 }
 
-model ClynicalIlness{
-  id        Int      @id @default(autoincrement())
+model ClinicalIllness{
+  id        String      @id @default(uuid())
   name String
   information String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users     UserClynicalIlness[]
+  users     UserClinicalIllness[]
 }
 
 
 model UserAlergy{
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [UserId], references: [id])
-  UserId    Int
-  allergy   Allergy  @relation(fields: [AllergyId], references: [id])
-  AllergyId Int
+  id        String      @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  allergy   Allergy  @relation(fields: [allergyId], references: [id])
+  allergyId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model UserClynicalIlness{
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [UserId], references: [id])
-  UserId    Int
-  clynicalIlness   ClynicalIlness  @relation(fields: [ClynicalIlnessId], references: [id])
-  ClynicalIlnessId Int
+model UserClinicalIllness{
+  id        String      @id @default(uuid())
+  user     User     @relation(fields: [userId], references: [id])
+  userId    String
+  clinicalIllness   ClinicalIllness  @relation(fields: [clinicalIllnessId], references: [id])
+  clinicalIllnessId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model UserProduct {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [UserId], references: [id])
-  UserId    Int
-  product   Product  @relation(fields: [ProductId], references: [id])
-  ProductId Int
+  id        String      @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model ProductPharmacy {
-  id        Int      @id @default(autoincrement())
-  product   Product  @relation(fields: [ProductId], references: [id])
-  ProductId Int
-  pharmacy  Pharmacy @relation(fields: [PharmacyId], references: [id])
-  PharmacyId Int
-  price     Float
+  id        String      @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  pharmacy  Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

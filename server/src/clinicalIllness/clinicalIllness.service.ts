@@ -1,6 +1,6 @@
 import { db } from "../utils/db.server";
 
-type Allergy = {
+type ClinicalIllness = {
     id: string;
     name: string;
     information: string;
@@ -8,8 +8,8 @@ type Allergy = {
     updatedAt: Date;
 };
 
-export const listAllergies = async (): Promise<Allergy[]> => {
-    return db.allergy.findMany({
+export const listClinicalIllnesses = async (): Promise<ClinicalIllness[]> => {
+    return db.clinicalIllness.findMany({
         select: {
             id: true,
             name: true,
@@ -20,48 +20,50 @@ export const listAllergies = async (): Promise<Allergy[]> => {
     });
 };
 
-export const getAllergy = async (id: string): Promise<Allergy | null> => {
-    return db.allergy.findUnique({
-        where: {
-            id,
-        },
-        select: {
-            id: true,
-            name: true,
-            information: true,
-            createdAt: true,
-            updatedAt: true,
-        },
-    });
-};
-
-export const createAllergy = async (
-    allergy: Omit<Allergy, "id">
-): Promise<Allergy> => {
-    const { name, information, createdAt, updatedAt } = allergy;
-    return db.allergy.create({
-        data: {
-            name,
-            information,
-            createdAt,
-            updatedAt,
-        },
-        select: {
-            id: true,
-            name: true,
-            information: true,
-            createdAt: true,
-            updatedAt: true,
-        },
-    });
-};
-
-export const updateAllergy = async (
-    allergy: Omit<Allergy, "id">,
+export const getClinicalIllness = async (
     id: string
-): Promise<Allergy> => {
-    const { name, information, createdAt, updatedAt } = allergy;
-    return db.allergy.update({
+): Promise<ClinicalIllness | null> => {
+    return db.clinicalIllness.findUnique({
+        where: {
+            id,
+        },
+        select: {
+            id: true,
+            name: true,
+            information: true,
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
+};
+
+export const createClinicalIllness = async (
+    clinicalIllness: Omit<ClinicalIllness, "id">
+): Promise<ClinicalIllness> => {
+    const { name, information, createdAt, updatedAt } = clinicalIllness;
+    return db.clinicalIllness.create({
+        data: {
+            name,
+            information,
+            createdAt,
+            updatedAt,
+        },
+        select: {
+            id: true,
+            name: true,
+            information: true,
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
+};
+
+export const updateClinicalIllness = async (
+    clinicalIllness: Omit<ClinicalIllness, "id">,
+    id: string
+): Promise<ClinicalIllness> => {
+    const { name, information, createdAt, updatedAt } = clinicalIllness;
+    return db.clinicalIllness.update({
         where: {
             id,
         },
@@ -81,8 +83,8 @@ export const updateAllergy = async (
     });
 };
 
-export const deleteAllergy = async (id: string): Promise<void> => {
-    await db.allergy.delete({
+export const deleteClinicalIllness = async (id: string): Promise<void> => {
+    await db.clinicalIllness.delete({
         where: {
             id,
         },

@@ -1,7 +1,7 @@
 import { db } from '../utils/db.server';
 
 type Pharmacy = {
-    id: number;
+    id: string;
     name: string;
     address: string;
     openTime: string;
@@ -28,7 +28,7 @@ export const listPharmacies = async (): Promise<Pharmacy[]> => {
     });
 };
 
-export const getPharmacy = async (id: number): Promise<Pharmacy | null> => {
+export const getPharmacy = async (id: string): Promise<Pharmacy | null> => {
     return db.pharmacy.findUnique({
         where: {
             id,
@@ -76,7 +76,7 @@ export const createPharmacy = async (pharmacy: Omit<Pharmacy, 'id'>): Promise<Ph
 
 export const updatePharmacy = async (
     pharmacy: Omit<Pharmacy, 'id'>,
-    id: number
+    id: string
 ): Promise<Pharmacy> => {
     const { name, address, openTime, closeTime, latitude, longitude, createdAt, updatedAt } = pharmacy;
     return db.pharmacy.update({
@@ -107,7 +107,7 @@ export const updatePharmacy = async (
     });
 };
 
-export const deletePharmacy = async (id: number): Promise<void> => {
+export const deletePharmacy = async (id: string): Promise<void> => {
     await db.pharmacy.delete({
         where: {
             id,

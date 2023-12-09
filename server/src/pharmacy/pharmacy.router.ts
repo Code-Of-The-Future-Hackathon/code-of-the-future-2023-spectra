@@ -5,7 +5,38 @@ import * as pharmacyService from './pharmacy.service';
 
 export const pharmacyRouter = express.Router();
 
-// GET: list of all pharmacies
+/**
+ * @swagger
+ * tags:
+ *   name: Pharmacies
+ *   description: API endpoints related to pharmaciess
+ */
+
+
+/**
+ * @swagger
+ * /pharmacies:
+ *   get:
+ *     summary: Get a list of pharmacies
+ *     description: Retrieve a list of pharmacies.
+ *     tags: [Pharmacies]
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             example:
+ *               - id: "1"
+ *                 name: "ABC Pharmacy"
+ *                 formId: 1
+ *                 address: "123 Main Street"
+ *                 openTime: "08:00 AM"
+ *                 closeTime: "06:00 PM"
+ *                 latitude: 40.7128
+ *                 longitude: -74.0060
+ *                 createdAt: "2023-01-01T00:00:00Z"
+ *                 updatedAt: "2023-01-01T00:00:00Z"
+ */
 pharmacyRouter.get('/', async (request: Request, response: Response) => {
     try {
         const pharmacies = await pharmacyService.listPharmacies();
@@ -15,9 +46,41 @@ pharmacyRouter.get('/', async (request: Request, response: Response) => {
     }
 });
 
-// GET: a single pharmacy by id
+/**
+ * @swagger
+ * /pharmacies/{id}:
+ *   get:
+ *     summary: Get a single pharmacy by id
+ *     description: Retrieve a single pharmacy by its id.
+ *     tags: [Pharmacies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the pharmacy
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "ABC Pharmacy"
+ *               formId: 1
+ *               address: "123 Main Street"
+ *               openTime: "08:00 AM"
+ *               closeTime: "06:00 PM"
+ *               latitude: 40.7128
+ *               longitude: -74.0060
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-01T00:00:00Z"
+ *       404:
+ *         description: Pharmacy not found
+ */
 pharmacyRouter.get('/:id', async (request: Request, response: Response) => {
-    const id: number = parseInt(request.params.id, 10);
+    const id = request.params.id;
 
     try {
         const pharmacy = await pharmacyService.getPharmacy(id);
@@ -31,7 +94,44 @@ pharmacyRouter.get('/:id', async (request: Request, response: Response) => {
     }
 });
 
-// POST: create a pharmacy
+/**
+ * @swagger
+ * /pharmacies:
+ *   post:
+ *     summary: Create a pharmacy
+ *     description: Create a new pharmacy.
+ *     tags: [Pharmacies]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             name: "ABC Pharmacy"
+ *             formId: 1
+ *             address: "123 Main Street"
+ *             openTime: "08:00 AM"
+ *             closeTime: "06:00 PM"
+ *             latitude: 40.7128
+ *             longitude: -74.0060
+ *     responses:
+ *       201:
+ *         description: Pharmacy created successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "ABC Pharmacy"
+ *               formId: 1
+ *               address: "123 Main Street"
+ *               openTime: "08:00 AM"
+ *               closeTime: "06:00 PM"
+ *               latitude: 40.7128
+ *               longitude: -74.0060
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-01T00:00:00Z"
+ *       400:
+ *         description: Invalid request body
+ */
 pharmacyRouter.post(
     '/',
     body('name').isString(),
@@ -59,7 +159,53 @@ pharmacyRouter.post(
     }
 );
 
-// PUT: updating a pharmacy
+/**
+ * @swagger
+ * /pharmacies/{id}:
+ *   put:
+ *     summary: Update a pharmacy
+ *     description: Update an existing pharmacy by its id.
+ *     tags: [Pharmacies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the pharmacy
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             name: "Updated ABC Pharmacy"
+ *             formId: 1
+ *             address: "123 Main Street"
+ *             openTime: "09:00 AM"
+ *             closeTime: "07:00 PM"
+ *             latitude: 40.7128
+ *             longitude: -74.0060
+ *     responses:
+ *       200:
+ *         description: Pharmacy updated successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "Updated ABC Pharmacy"
+ *               formId: 1
+ *               address: "123 Main Street"
+ *               openTime: "09:00 AM"
+ *               closeTime: "07:00 PM"
+ *               latitude: 40.7128
+ *               longitude: -74.0060
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-02T00:00:00Z"
+ *       400:
+ *         description: Invalid request body
+ *       404:
+ *         description: Pharmacy not found
+ */
 pharmacyRouter.put(
     '/:id',
     body('name').isString(),
@@ -76,7 +222,7 @@ pharmacyRouter.put(
             return response.status(400).json({ errors: errors.array() });
         }
 
-        const id: number = parseInt(request.params.id, 10);
+        const id = request.params.id;
 
         try {
             const pharmacy = request.body;
@@ -89,9 +235,28 @@ pharmacyRouter.put(
     }
 );
 
-// DELETE: Delete a pharmacy based on the id
+/**
+ * @swagger
+ * /pharmacies/{id}:
+ *   delete:
+ *     summary: Delete a pharmacy
+ *     description: Delete an existing pharmacy by its id.
+ *     tags: [Pharmacies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the pharmacy
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Pharmacy deleted successfully
+ *       404:
+ *         description: Pharmacy not found
+ */
 pharmacyRouter.delete('/:id', async (request: Request, response: Response) => {
-    const id: number = parseInt(request.params.id, 10);
+    const id = request.params.id;
 
     try {
         await pharmacyService.deletePharmacy(id);
