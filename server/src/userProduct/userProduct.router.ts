@@ -12,6 +12,47 @@ export const userProductRouter = express.Router();
  *   description: API endpoints related to user products
  */
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     UserProduct:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The unique identifier of the user product.
+ *         userId:
+ *           type: string
+ *           description: The ID of the user associated with the product.
+ *         name:
+ *           type: string
+ *           description: The name of the user product.
+ *         facts:
+ *           type: array
+ *           description: Facts about the user product.
+ *           items:
+ *             type: string
+ *         advice:
+ *           type: array
+ *           description: Advice related to the user product.
+ *           items:
+ *             type: string
+ *         statuses:
+ *           type: string
+ *           description: Statuses related to the user product.
+ *         expert:
+ *           type: string
+ *           description: The expert associated with the user product.
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The timestamp when the user product was created.
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The timestamp when the user product was last updated.
+ */
 
 /**
  * @swagger
@@ -26,12 +67,17 @@ export const userProductRouter = express.Router();
  *         content:
  *           application/json:
  *             example:
- *               - id: 1
- *                 userId: 1
- *                 productId: 1
+ *               - id: "1"
+ *                 userId: "1"
+ *                 name: "Product A"
+ *                 facts: ["Fact 1", "Fact 2"]
+ *                 advice: ["Advice 1", "Advice 2"]
+ *                 statuses: "Status A"
+ *                 expert: "Expert A"
  *                 createdAt: '2023-01-01T00:00:00Z'
  *                 updatedAt: '2023-01-01T00:00:00Z'
  */
+
 userProductRouter.get('/', async (request: Request, response: Response) => {
     try {
         const userProducts = await userProductService.listUserProducts();
@@ -61,9 +107,13 @@ userProductRouter.get('/', async (request: Request, response: Response) => {
  *         content:
  *           application/json:
  *             example:
- *               id: 1
- *               userId: 1
- *               productId: 1
+ *               id: "1"
+ *               userId: "1"
+ *               name: "Product A"
+ *               facts: ["Fact 1", "Fact 2"]
+ *               advice: ["Advice 1", "Advice 2"]
+ *               statuses: "Status A"
+ *               expert: "Expert A"
  *               createdAt: '2023-01-01T00:00:00Z'
  *               updatedAt: '2023-01-01T00:00:00Z'
  *       404:
@@ -73,7 +123,7 @@ userProductRouter.get('/:id', async (request: Request, response: Response) => {
     const id = request.params.id;
 
     try {
-        const userProduct = await userProductService.getUserProduct(id);
+        const userProduct = await userProductService.getUserProductById(id);
 
         if (userProduct) {
             return response.status(200).json(userProduct);
@@ -96,17 +146,25 @@ userProductRouter.get('/:id', async (request: Request, response: Response) => {
  *       content:
  *         application/json:
  *           example:
- *             userId: 1
- *             productId: 1
+ *             userId: "1"
+ *             name: "Product A"
+ *             facts: ["Fact 1", "Fact 2"]
+ *             advice: ["Advice 1", "Advice 2"]
+ *             statuses: "Status A"
+ *             expert: "Expert A"
  *     responses:
  *       201:
  *         description: User product created successfully
  *         content:
  *           application/json:
  *             example:
- *               id: 1
- *               userId: 1
- *               productId: 1
+ *               id: "1"
+ *               userId: "1"
+ *               name: "Product A"
+ *               facts: ["Fact 1", "Fact 2"]
+ *               advice: ["Advice 1", "Advice 2"]
+ *               statuses: "Status A"
+ *               expert: "Expert A"
  *               createdAt: '2023-01-01T00:00:00Z'
  *               updatedAt: '2023-01-01T00:00:00Z'
  *       400:
@@ -115,7 +173,11 @@ userProductRouter.get('/:id', async (request: Request, response: Response) => {
 userProductRouter.post(
     '/',
     body('userId').isString(),
-    body('productId').isString(),
+    body('name').isString(),
+    body('facts').isArray(),
+    body('advice').isArray(),
+    body('statuses').isString(),
+    body('expert').isString(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -152,17 +214,25 @@ userProductRouter.post(
  *       content:
  *         application/json:
  *           example:
- *             userId: 1
- *             productId: 2
+ *             userId: "1"
+ *             name: "Updated Product A"
+ *             facts: ["Updated Fact 1", "Updated Fact 2"]
+ *             advice: ["Updated Advice 1", "Updated Advice 2"]
+ *             statuses: "Updated Status A"
+ *             expert: "Updated Expert A"
  *     responses:
  *       200:
  *         description: User product updated successfully
  *         content:
  *           application/json:
  *             example:
- *               id: 1
- *               userId: 1
- *               productId: 2
+ *               id: "1"
+ *               userId: "1"
+ *               name: "Updated Product A"
+ *               facts: ["Updated Fact 1", "Updated Fact 2"]
+ *               advice: ["Updated Advice 1", "Updated Advice 2"]
+ *               statuses: "Updated Status A"
+ *               expert: "Updated Expert A"
  *               createdAt: '2023-01-01T00:00:00Z'
  *               updatedAt: '2023-01-01T00:00:00Z'
  *       400:
@@ -173,7 +243,11 @@ userProductRouter.post(
 userProductRouter.put(
     '/:id',
     body('userId').isString(),
-    body('productId').isString(),
+    body('name').isString(),
+    body('facts').isArray(),
+    body('advice').isArray(),
+    body('statuses').isString(),
+    body('expert').isString(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 

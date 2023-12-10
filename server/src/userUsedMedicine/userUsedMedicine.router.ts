@@ -1,26 +1,24 @@
-// userAlergy.router.ts
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import * as userAllergyService from './userAlergy.service';
+import * as userUsedMedicineService from './userUsedMedicine.service';
 import type { Request, Response } from 'express';
 
-export const userAlergyRouter = express.Router();
+export const userUsedMedicineRouter = express.Router();
 
 /**
  * @swagger
  * tags:
- *   name: userAlergy
- *   description: API endpoints related to user allergies
+ *   name: UserUsedMedicines
+ *   description: API endpoints related to user-used medicines
  */
-
 
 /**
  * @swagger
- * /userAllergies:
+ * /userUsedMedicines:
  *   get:
- *     summary: Get a list of user allergies
- *     description: Retrieve a list of user allergies.
- *     tags: [userAlergy]
+ *     summary: Get a list of user-used medicines
+ *     description: Retrieve a list of user-used medicines.
+ *     tags: [UserUsedMedicines]
  *     responses:
  *       200:
  *         description: Successful operation
@@ -29,14 +27,14 @@ export const userAlergyRouter = express.Router();
  *             example:
  *               - id: "1"
  *                 userId: "1"
- *                 allergyId: "1"
+ *                 medicine: ["Medicine1", "Medicine2"]
  *                 createdAt: "2023-01-01T00:00:00Z"
  *                 updatedAt: "2023-01-01T00:00:00Z"
  */
-userAlergyRouter.get('/', async (request: Request, response: Response) => {
+userUsedMedicineRouter.get('/', async (_, response: Response) => {
     try {
-        const userAllergies = await userAllergyService.listUserAllergies();
-        return response.status(200).json(userAllergies);
+        const userUsedMedicines = await userUsedMedicineService.listUserUsedMedicines();
+        return response.status(200).json(userUsedMedicines);
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
@@ -44,15 +42,15 @@ userAlergyRouter.get('/', async (request: Request, response: Response) => {
 
 /**
  * @swagger
- * /userAllergies/{id}:
+ * /userUsedMedicines/{id}:
  *   get:
- *     summary: Get a single user allergy by id
- *     description: Retrieve a single user allergy by its id.
- *     tags: [userAlergy]
+ *     summary: Get a single user-used medicine by id
+ *     description: Retrieve a single user-used medicine by its id.
+ *     tags: [UserUsedMedicines]
  *     parameters:
  *       - in: path
  *         name: id
- *         description: ID of the user allergy
+ *         description: ID of the user-used medicine
  *         required: true
  *         schema:
  *           type: string
@@ -64,22 +62,22 @@ userAlergyRouter.get('/', async (request: Request, response: Response) => {
  *             example:
  *               id: "1"
  *               userId: "1"
- *               allergyId: "1"
+ *               medicine: ["Medicine1", "Medicine2"]
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       404:
- *         description: User Allergy not found
+ *         description: User-Used Medicine not found
  */
-userAlergyRouter.get('/:id', async (request: Request, response: Response) => {
+userUsedMedicineRouter.get('/:id', async (request: Request, response: Response) => {
     const id = request.params.id;
 
     try {
-        const userAllergy = await userAllergyService.getUserAllergy(id);
+        const userUsedMedicine = await userUsedMedicineService.getUserUsedMedicine(id);
 
-        if (userAllergy) {
-            return response.status(200).json(userAllergy);
+        if (userUsedMedicine) {
+            return response.status(200).json(userUsedMedicine);
         }
-        return response.status(404).json('User Allergy could not be found');
+        return response.status(404).json('User-Used Medicine could not be found');
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
@@ -87,36 +85,36 @@ userAlergyRouter.get('/:id', async (request: Request, response: Response) => {
 
 /**
  * @swagger
- * /userAllergies:
+ * /userUsedMedicines:
  *   post:
- *     summary: Create a user allergy
- *     description: Create a new user allergy.
- *     tags: [userAlergy]
+ *     summary: Create a user-used medicine
+ *     description: Create a new user-used medicine.
+ *     tags: [UserUsedMedicines]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           example:
  *             userId: "1"
- *             allergyId: "1"
+ *             medicine: ["Medicine1", "Medicine2"]
  *     responses:
  *       201:
- *         description: User Allergy created successfully
+ *         description: User-Used Medicine created successfully
  *         content:
  *           application/json:
  *             example:
  *               id: "1"
  *               userId: "1"
- *               allergyId: "1"
+ *               medicine: ["Medicine1", "Medicine2"]
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       400:
  *         description: Invalid request body
  */
-userAlergyRouter.post(
+userUsedMedicineRouter.post(
     '/',
     body('userId').isString(),
-    body('allergyId').isString(),
+    body('medicine').isArray(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -125,9 +123,9 @@ userAlergyRouter.post(
         }
 
         try {
-            const userAllergy = request.body;
-            const newUserAllergy = await userAllergyService.createUserAllergy(userAllergy);
-            return response.status(201).json(newUserAllergy);
+            const userUsedMedicine = request.body;
+            const newUserUsedMedicine = await userUsedMedicineService.createUserUsedMedicine(userUsedMedicine);
+            return response.status(201).json(newUserUsedMedicine);
         } catch (error: any) {
             return response.status(500).json(error.message);
         }
@@ -136,15 +134,15 @@ userAlergyRouter.post(
 
 /**
  * @swagger
- * /userAllergies/{id}:
+ * /userUsedMedicines/{id}:
  *   put:
- *     summary: Update a user allergy
- *     description: Update an existing user allergy by its id.
- *     tags: [userAlergy]
+ *     summary: Update a user-used medicine
+ *     description: Update an existing user-used medicine by its id.
+ *     tags: [UserUsedMedicines]
  *     parameters:
  *       - in: path
  *         name: id
- *         description: ID of the user allergy
+ *         description: ID of the user-used medicine
  *         required: true
  *         schema:
  *           type: string
@@ -154,27 +152,27 @@ userAlergyRouter.post(
  *         application/json:
  *           example:
  *             userId: "1"
- *             allergyId: "2"
+ *             medicine: ["UpdatedMedicine1", "UpdatedMedicine2"]
  *     responses:
  *       200:
- *         description: User Allergy updated successfully
+ *         description: User-Used Medicine updated successfully
  *         content:
  *           application/json:
  *             example:
  *               id: "1"
  *               userId: "1"
- *               allergyId: "2"
+ *               medicine: ["UpdatedMedicine1", "UpdatedMedicine2"]
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       400:
  *         description: Invalid request body
  *       404:
- *         description: User Allergy not found
+ *         description: User-Used Medicine not found
  */
-userAlergyRouter.put(
+userUsedMedicineRouter.put(
     '/:id',
     body('userId').isString(),
-    body('allergyId').isString(),
+    body('medicine').isArray(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -185,13 +183,13 @@ userAlergyRouter.put(
         const id = request.params.id;
 
         try {
-            const userAllergy = request.body;
-            const updatedUserAllergy = await userAllergyService.updateUserAllergy(
-                userAllergy,
+            const userUsedMedicine = request.body;
+            const updatedUserUsedMedicine = await userUsedMedicineService.updateUserUsedMedicine(
+                userUsedMedicine,
                 id
             );
 
-            return response.status(200).json(updatedUserAllergy);
+            return response.status(200).json(updatedUserUsedMedicine);
         } catch (error: any) {
             return response.status(500).json(error.message);
         }
@@ -200,32 +198,32 @@ userAlergyRouter.put(
 
 /**
  * @swagger
- * /userAllergies/{id}:
+ * /userUsedMedicines/{id}:
  *   delete:
- *     summary: Delete a user allergy
- *     description: Delete an existing user allergy by its id.
- *     tags: [userAlergy]
+ *     summary: Delete a user-used medicine
+ *     description: Delete an existing user-used medicine by its id.
+ *     tags: [UserUsedMedicines]
  *     parameters:
  *       - in: path
  *         name: id
- *         description: ID of the user allergy
+ *         description: ID of the user-used medicine
  *         required: true
  *         schema:
  *           type: string
  *     responses:
  *       204:
- *         description: User Allergy deleted successfully
+ *         description: User-Used Medicine deleted successfully
  *       404:
- *         description: User Allergy not found
+ *         description: User-Used Medicine not found
  */
-userAlergyRouter.delete('/:id', async (request: Request, response: Response) => {
+userUsedMedicineRouter.delete('/:id', async (request: Request, response: Response) => {
     const id = request.params.id;
 
     try {
-        await userAllergyService.deleteUserAllergy(id);
+        await userUsedMedicineService.deleteUserUsedMedicine(id);
         return response
             .status(204)
-            .json('User Allergy has been successfully deleted');
+            .json('User-Used Medicine has been successfully deleted');
     } catch (error: any) {
         return response.status(500).json(error.message);
     }

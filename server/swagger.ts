@@ -14,18 +14,19 @@ const options = {
             },
         ],
     },
-    apis: ['./src/allergy/allergy.router.ts',
+    apis: [
         './src/category/category.router.ts',
-        './src/clinicalIllness/clinicalIllness.router.ts',
         './src/form/form.router.ts',
         './src/pharmacy/pharmacy.router.ts',
         './src/product/product.router.ts',
         './src/productPharmacy/productPharmacy.router.ts',
         './src/user/user.router.ts',
-        './src/userAlergy/userAlergy.router.ts',
-        './src/userClinicalIllness/userClinicalIllness.router.ts',
         './src/userPreferences/userPreferences.router.ts',
-        './src/userProduct/userProduct.router.ts'], 
+        './src/userProduct/userProduct.router.ts',
+        './src/userUsedMedicine/userUsedMedicine.router.ts',
+        './src/userCondition/userCondition.router.ts',
+        './src/condition/condition.router.ts',
+    ], 
 };
 
 const specs = swaggerJsdoc(options);

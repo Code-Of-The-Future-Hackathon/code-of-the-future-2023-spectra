@@ -1,26 +1,24 @@
-// userClinicalIllness.router.ts
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import * as userClinicalIllnessService from './userClinicalIllness.service';
+import * as userConditionService from './userCondition.service';
 import type { Request, Response } from 'express';
 
-export const userClinicalIllnessRouter = express.Router();
+export const userConditionRouter = express.Router();
 
 /**
  * @swagger
  * tags:
- *   name: userClinicalIllness
- *   description: API endpoints related to user clinical illnesses
+ *   name: UserConditions
+ *   description: API endpoints related to user conditions
  */
-
 
 /**
  * @swagger
- * /userClinicalIllnesses:
+ * /userConditions:
  *   get:
- *     summary: Get a list of user clinical illnesses
- *     description: Retrieve a list of user clinical illnesses.
- *     tags: [userClinicalIllness]
+ *     summary: Get a list of user conditions
+ *     description: Retrieve a list of user conditions.
+ *     tags: [UserConditions]
  *     responses:
  *       200:
  *         description: Successful operation
@@ -29,14 +27,14 @@ export const userClinicalIllnessRouter = express.Router();
  *             example:
  *               - id: "1"
  *                 userId: "1"
- *                 clinicalIllnessId: "1"
+ *                 conditionId: "1"
  *                 createdAt: "2023-01-01T00:00:00Z"
  *                 updatedAt: "2023-01-01T00:00:00Z"
  */
-userClinicalIllnessRouter.get('/', async (request: Request, response: Response) => {
+userConditionRouter.get('/', async (request: Request, response: Response) => {
     try {
-        const userClinicalIllnesses = await userClinicalIllnessService.listUserClinicalIllnesses();
-        return response.status(200).json(userClinicalIllnesses);
+        const userConditions = await userConditionService.listUserConditions();
+        return response.status(200).json(userConditions);
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
@@ -44,15 +42,15 @@ userClinicalIllnessRouter.get('/', async (request: Request, response: Response) 
 
 /**
  * @swagger
- * /userClinicalIllnesses/{id}:
+ * /userConditions/{id}:
  *   get:
- *     summary: Get a single user clinical illness by id
- *     description: Retrieve a single user clinical illness by its id.
- *     tags: [userClinicalIllness]
+ *     summary: Get a single user condition by id
+ *     description: Retrieve a single user condition by its id.
+ *     tags: [UserConditions]
  *     parameters:
  *       - in: path
  *         name: id
- *         description: ID of the user clinical illness
+ *         description: ID of the user condition
  *         required: true
  *         schema:
  *           type: string
@@ -64,22 +62,22 @@ userClinicalIllnessRouter.get('/', async (request: Request, response: Response) 
  *             example:
  *               id: "1"
  *               userId: "1"
- *               clinicalIllnessId: "1"
+ *               conditionId: "1"
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       404:
- *         description: User Clinical Illness not found
+ *         description: User Condition not found
  */
-userClinicalIllnessRouter.get('/:id', async (request: Request, response: Response) => {
+userConditionRouter.get('/:id', async (request: Request, response: Response) => {
     const id = request.params.id;
 
     try {
-        const userClinicalIllness = await userClinicalIllnessService.getUserClinicalIllness(id);
+        const userCondition = await userConditionService.getUserCondition(id);
 
-        if (userClinicalIllness) {
-            return response.status(200).json(userClinicalIllness);
+        if (userCondition) {
+            return response.status(200).json(userCondition);
         }
-        return response.status(404).json('User Clinical Illness could not be found');
+        return response.status(404).json('User Condition could not be found');
     } catch (error: any) {
         return response.status(500).json(error.message);
     }
@@ -87,36 +85,36 @@ userClinicalIllnessRouter.get('/:id', async (request: Request, response: Respons
 
 /**
  * @swagger
- * /userClinicalIllnesses:
+ * /userConditions:
  *   post:
- *     summary: Create a user clinical illness
- *     description: Create a new user clinical illness.
- *     tags: [userClinicalIllness]
+ *     summary: Create a user condition
+ *     description: Create a new user condition.
+ *     tags: [UserConditions]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           example:
  *             userId: "1"
- *             clinicalIllnessId: "1"
+ *             conditionId: "1"
  *     responses:
  *       201:
- *         description: User Clinical Illness created successfully
+ *         description: User Condition created successfully
  *         content:
  *           application/json:
  *             example:
  *               id: "1"
  *               userId: "1"
- *               clinicalIllnessId: "1"
+ *               conditionId: "1"
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       400:
  *         description: Invalid request body
  */
-userClinicalIllnessRouter.post(
+userConditionRouter.post(
     '/',
     body('userId').isString(),
-    body('clinicalIllnessId').isString(),
+    body('conditionId').isString(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -125,9 +123,9 @@ userClinicalIllnessRouter.post(
         }
 
         try {
-            const userClinicalIllness = request.body;
-            const newUserClinicalIllness = await userClinicalIllnessService.createUserClinicalIllness(userClinicalIllness);
-            return response.status(201).json(newUserClinicalIllness);
+            const userCondition = request.body;
+            const newUserCondition = await userConditionService.createUserCondition(userCondition);
+            return response.status(201).json(newUserCondition);
         } catch (error: any) {
             return response.status(500).json(error.message);
         }
@@ -136,15 +134,15 @@ userClinicalIllnessRouter.post(
 
 /**
  * @swagger
- * /userClinicalIllnesses/{id}:
+ * /userConditions/{id}:
  *   put:
- *     summary: Update a user clinical illness
- *     description: Update an existing user clinical illness by its id.
- *     tags: [userClinicalIllness]
+ *     summary: Update a user condition
+ *     description: Update an existing user condition by its id.
+ *     tags: [UserConditions]
  *     parameters:
  *       - in: path
  *         name: id
- *         description: ID of the user clinical illness
+ *         description: ID of the user condition
  *         required: true
  *         schema:
  *           type: string
@@ -154,27 +152,27 @@ userClinicalIllnessRouter.post(
  *         application/json:
  *           example:
  *             userId: "1"
- *             clinicalIllnessId: "2"
+ *             conditionId: "2"
  *     responses:
  *       200:
- *         description: User Clinical Illness updated successfully
+ *         description: User Condition updated successfully
  *         content:
  *           application/json:
  *             example:
  *               id: "1"
  *               userId: "1"
- *               clinicalIllnessId: "2"
+ *               conditionId: "2"
  *               createdAt: "2023-01-01T00:00:00Z"
  *               updatedAt: "2023-01-01T00:00:00Z"
  *       400:
  *         description: Invalid request body
  *       404:
- *         description: User Clinical Illness not found
+ *         description: User Condition not found
  */
-userClinicalIllnessRouter.put(
+userConditionRouter.put(
     '/:id',
     body('userId').isString(),
-    body('clinicalIllnessId').isString(),
+    body('conditionId').isString(),
     async (request: Request, response: Response) => {
         const errors = validationResult(request);
 
@@ -185,13 +183,13 @@ userClinicalIllnessRouter.put(
         const id = request.params.id;
 
         try {
-            const userClinicalIllness = request.body;
-            const updatedUserClinicalIllness = await userClinicalIllnessService.updateUserClinicalIllness(
-                userClinicalIllness,
+            const userCondition = request.body;
+            const updatedUserCondition = await userConditionService.updateUserCondition(
+                userCondition,
                 id
             );
 
-            return response.status(200).json(updatedUserClinicalIllness);
+            return response.status(200).json(updatedUserCondition);
         } catch (error: any) {
             return response.status(500).json(error.message);
         }
@@ -200,32 +198,32 @@ userClinicalIllnessRouter.put(
 
 /**
  * @swagger
- * /userClinicalIllnesses/{id}:
+ * /userConditions/{id}:
  *   delete:
- *     summary: Delete a user clinical illness
- *     description: Delete an existing user clinical illness by its id.
- *     tags: [userClinicalIllness]
+ *     summary: Delete a user condition
+ *     description: Delete an existing user condition by its id.
+ *     tags: [UserConditions]
  *     parameters:
  *       - in: path
  *         name: id
- *         description: ID of the user clinical illness
+ *         description: ID of the user condition
  *         required: true
  *         schema:
  *           type: string
  *     responses:
  *       204:
- *         description: User Clinical Illness deleted successfully
+ *         description: User Condition deleted successfully
  *       404:
- *         description: User Clinical Illness not found
+ *         description: User Condition not found
  */
-userClinicalIllnessRouter.delete('/:id', async (request: Request, response: Response) => {
+userConditionRouter.delete('/:id', async (request: Request, response: Response) => {
     const id = request.params.id;
 
     try {
-        await userClinicalIllnessService.deleteUserClinicalIllness(id);
+        await userConditionService.deleteUserCondition(id);
         return response
             .status(204)
-            .json('User Clinical Illness has been successfully deleted');
+            .json('User Condition has been successfully deleted');
     } catch (error: any) {
         return response.status(500).json(error.message);
     }

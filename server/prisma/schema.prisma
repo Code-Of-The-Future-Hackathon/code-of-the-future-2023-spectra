@@ -33,10 +33,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  allergies UserAlergy[]
-  clinicalIllness UserClinicalIllness[]
+  allergies UserCondition[]
   preferences UserPreferences[]
   products UserProduct[]
+  medicine userUsedMedicine[]
 }
 
 model Product {
@@ -60,7 +60,6 @@ model Product {
   category  Category @relation(fields: [categoryId], references: [id])
   categoryId String
 
-  users     UserProduct[]
   pharmacies ProductPharmacy[]
 }
 
@@ -99,49 +98,29 @@ model UserPreferences {
   id        String      @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  dosage    String
-  time      String
+  preferences String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Allergy {
+model Condition {
   id        String      @id @default(uuid())
-  name   String
-  information String
+  alergies   String @default("Няма извести алергии")
+  chronicDiseases String @default("Няма извести хронични заболявания")
+  diseases String @default("Няма извести заболявания")
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users     UserAlergy[]
+  users     UserCondition[]
 }
 
-model ClinicalIllness{
-  id        String      @id @default(uuid())
-  name String
-  information String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  users     UserClinicalIllness[]
-}
-
-
-model UserAlergy{
+model UserCondition{
   id        String      @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  allergy   Allergy  @relation(fields: [allergyId], references: [id])
-  allergyId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model UserClinicalIllness{
-  id        String      @id @default(uuid())
-  user     User     @relation(fields: [userId], references: [id])
-  userId    String
-  clinicalIllness   ClinicalIllness  @relation(fields: [clinicalIllnessId], references: [id])
-  clinicalIllnessId String
+  condition   Condition  @relation(fields: [conditionId], references: [id])
+  conditionId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -150,8 +129,11 @@ model UserProduct {
   id        String      @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  product   Product  @relation(fields: [productId], references: [id])
-  productId String
+  name     String
+  facts String[]
+  advice String[]
+  status String
+  expert String 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -162,6 +144,15 @@ model ProductPharmacy {
   productId String
   pharmacy  Pharmacy @relation(fields: [pharmacyId], references: [id])
   pharmacyId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model userUsedMedicine{
+  id        String      @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  medicine String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

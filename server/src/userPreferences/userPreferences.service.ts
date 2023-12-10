@@ -3,8 +3,7 @@ import { db } from '../utils/db.server';
 type UserPreferences = {
     id: string;
     userId: string;
-    dosage: string;
-    time: string;
+    preferences: string[];
 };
 
 export const listUserPreferences = async (): Promise<UserPreferences[]> => {
@@ -12,8 +11,7 @@ export const listUserPreferences = async (): Promise<UserPreferences[]> => {
         select: {
             id: true,
             userId: true,
-            dosage: true,
-            time: true,
+            preferences: true,
             createdAt: true,
             updatedAt: true,
         },
@@ -28,9 +26,7 @@ export const getUserPreferences = async (id: string): Promise<UserPreferences | 
         select: {
             id: true,
             userId: true,
-            dosage: true,
-            time: true,
-            createdAt: true,
+            preferences: true,
             updatedAt: true,
         },
     });
@@ -39,18 +35,18 @@ export const getUserPreferences = async (id: string): Promise<UserPreferences | 
 export const createUserPreferences = async (
     userPreferences: Omit<UserPreferences, 'id'>
 ): Promise<UserPreferences> => {
-    const { userId, dosage, time} = userPreferences;
+    const { userId, preferences} = userPreferences;
     return db.userPreferences.create({
         data: {
             userId,
-            dosage,
-            time,
+            preferences : {
+                set: preferences,
+            }
         },
         select: {
             id: true,
             userId: true,
-            dosage: true,
-            time: true,
+            preferences: true,
             createdAt: true,
             updatedAt: true,
         },
@@ -61,21 +57,21 @@ export const updateUserPreferences = async (
     userPreferences: Omit<UserPreferences, 'id'>,
     id: string
 ): Promise<UserPreferences> => {
-    const { userId, dosage, time} = userPreferences;
+    const { userId, preferences} = userPreferences;
     return db.userPreferences.update({
         where: {
             id,
         },
         data: {
             userId,
-            dosage,
-            time,
+            preferences : {
+                set: preferences,
+            }
         },
         select: {
             id: true,
             userId: true,
-            dosage: true,
-            time: true,
+            preferences: true,
             createdAt: true,
             updatedAt: true,
         },
@@ -88,12 +84,4 @@ export const deleteUserPreferences = async (id: string): Promise<void> => {
             id,
         },
     });
-};
-
-export default {
-    listUserPreferences,
-    getUserPreferences,
-    createUserPreferences,
-    updateUserPreferences,
-    deleteUserPreferences,
 };
