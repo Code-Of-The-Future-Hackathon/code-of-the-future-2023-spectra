@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
 import { HomeStackNavigator } from './HomeStackNavigator';
 import { ScannerStackNavigator } from './ScannerStackNavigator';
 import { MapStackNavigator } from './MapStackNavigator';
@@ -40,7 +42,16 @@ function TabsNavigator() {
         tabBarStyle: styles.tabBar,
       })}
     >
-      <Tab.Screen name="Home" component={HomeStackNavigator} />
+      <Tab.Screen name="Home" component={HomeStackNavigator} listeners={({ navigation, route }) => ({
+        focus: () => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+          if (routeName === 'Form') {
+            navigation.setOptions({ tabBarStyle: { display: 'none' } });
+          } else {
+            navigation.setOptions({ tabBarStyle: { ...styles.tabBar, display: 'flex' } });
+          }
+        },
+      })} />
       <Tab.Screen name="Scanner" component={ScannerStackNavigator} />
       <Tab.Screen name="Map" component={MapStackNavigator} />
       <Tab.Screen name="Settings" component={SettingsStackNavigator} />
@@ -50,6 +61,7 @@ function TabsNavigator() {
 
 const styles = StyleSheet.create({
   tabBar: {
+    display: 'flex',
     position: 'absolute',
     bottom: 16,
     left: 16,

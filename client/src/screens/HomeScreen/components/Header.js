@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Header = ({ navigation, username }) => {
   return (
@@ -13,9 +13,9 @@ const Header = ({ navigation, username }) => {
       </View>
       <TouchableOpacity
         style={styles.settingsButton}
-        onPress={() => navigation.navigate('Account')}
+        onPress={() => navigation.navigate('Form')}
       >
-        <Icon name="person" size={30} color="black" />
+        <AntDesign name="form" size={30} color="black" />
       </TouchableOpacity>
     </View>
   );

@@ -9,7 +9,7 @@ export const MapStackNavigator = () => {
   return (
     <MapStack.Navigator>
       <MapStack.Screen
-        name="HomeStack"
+        name="MapStack"
         component={MapScreen}
         options={{ headerShown: false }}
       />

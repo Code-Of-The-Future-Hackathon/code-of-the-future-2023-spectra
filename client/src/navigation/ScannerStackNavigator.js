@@ -8,7 +8,7 @@ export const ScannerStackNavigator = () => {
   return (
     <ScannerStack.Navigator>
       <ScannerStack.Screen
-        name="ScannerHome"
+        name="ScannerStack"
         component={ScannerScreen}
         options={{ headerShown: false }}
       />
