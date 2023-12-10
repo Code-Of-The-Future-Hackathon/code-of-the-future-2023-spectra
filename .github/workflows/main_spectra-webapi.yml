@@ -61,5 +61,5 @@ jobs:
         with:
           app-name: 'spectra-webapi'
           slot-name: 'Production'
-          package: .
+          package: './server/dist'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9AE61B2DBE794E6A96F0D2183164461B }}
