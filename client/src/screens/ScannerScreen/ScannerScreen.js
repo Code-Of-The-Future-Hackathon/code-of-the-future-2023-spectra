@@ -11,13 +11,13 @@ import {
   Image,
   Animated,
   Text,
+  Dimensions
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
 import { Camera } from 'expo-camera';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImageManipulator from 'expo-image-manipulator';
 
 import PermissionView from './components/PermissionView';
@@ -71,6 +71,21 @@ export function ScannerScreen({ navigation }) {
       leavesAnimationRef.current.play();
     }
   }, [cameraMode]);
+
+  useEffect(() => {
+    // Define the handler function
+    const handler = ({ window, screen }) => {
+      // Handle the dimensions change
+      console.log(`Window dimensions: ${window.width}x${window.height}`);
+      console.log(`Screen dimensions: ${screen.width}x${screen.height}`);
+    };
+  
+    // Subscribe to dimension changes
+    const subscription = Dimensions.addEventListener('change', handler);
+  
+    // Return a cleanup function that removes the event listener
+    return () => subscription.remove();
+  }, []);  
 
   const handlePress = () => {
     if (isButtonDisabled) return;
@@ -339,7 +354,7 @@ export function ScannerScreen({ navigation }) {
           disabled={isButtonDisabled}
         >
           {cameraMode === 'barcode' ? (
-            <MaterialCommunityIcons name="leaf" size={30} color="white" />
+            <MaterialIcons name="medical-services" size={30} color="white" />
           ) : (
             <MaterialIcons name="qr-code-scanner" size={30} color="white" />
           )}

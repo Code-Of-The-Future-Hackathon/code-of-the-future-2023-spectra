@@ -3,16 +3,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { MapScreen } from '../screens/MapScreen';
 
-const HomeStack = createStackNavigator();
+const MapStack = createStackNavigator();
 
 export const MapStackNavigator = () => {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
+    <MapStack.Navigator>
+      <MapStack.Screen
         name="HomeStack"
         component={MapScreen}
         options={{ headerShown: false }}
       />
-    </HomeStack.Navigator>
+    </MapStack.Navigator>
   );
 };

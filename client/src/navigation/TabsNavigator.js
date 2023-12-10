@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeStackNavigator } from './HomeStackNavigator';
 import { ScannerStackNavigator } from './ScannerStackNavigator';
 import { MapStackNavigator } from './MapStackNavigator';
+import { SettingsStackNavigator } from './SettingsStackNavigator';
 
 import Ionicons from 'react-native-vector-icons/Ionicons'; // Make sure you've installed this package
 
@@ -36,7 +37,7 @@ function TabsNavigator() {
             <Tab.Screen name="Home" component={HomeStackNavigator} />
             <Tab.Screen name="Scanner" component={ScannerStackNavigator} />
             <Tab.Screen name="Map" component={MapStackNavigator} />
-            <Tab.Screen name="Settings" component={HomeStackNavigator} />
+            <Tab.Screen name="Settings" component={SettingsStackNavigator} />
         </Tab.Navigator>
     );
 }
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.1,
         shadowRadius: 3.5,
-        elevation: 5
+        elevation: 5,
+        zIndex: 1,
     },
 });
 
