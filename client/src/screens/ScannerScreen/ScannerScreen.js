@@ -29,30 +29,8 @@ import RecognitionResult from './components/RecognitionResult';
 import AnimationView from './components/AnimationView';
 
 export function ScannerScreen({ navigation }) {
-  const tempProductDetails = {
-    id: 'f809861e-7049-4041-8390-4d431728865a',
-    name: 'Аналгин',
-    formId: 'bb7c29a2-851b-45d5-acb9-fb1e3c673ff9',
-    imgUrl:
-      'https://res.cloudinary.com/dyy4oqzuh/image/upload/v1702150986/ahusu8wpwcsb168qch37.jpg',
-    barcode: '3800010640039',
-    sideEffects: 'Алергични реакции, гастроинтестинални проблеми',
-    storage: 'Място недостъпно за деца, предпазено от пряка слънчева светлина.',
-    dosage: 'Да се пие 1/2 - 1 таблетка до 4 пъти дневно.',
-    ingredients: [
-      'Метамизол натрий',
-      'Пшенично нишесте',
-      'Нишесте',
-      'Натриев цикламат',
-      'Захарин натрий',
-    ],
-    contradictions: 'Алергии, кървене, проблеми с черния дроб',
-    categoryId: '12fe54c4-04b7-49f8-9934-7f21afc2fc04',
-    createdAt: '2023-12-10T07:54:55.102Z',
-    updatedAt: '2023-12-10T07:54:55.102Z',
-  };
 
-  const [productDetails, setProductDetails] = useState(tempProductDetails);
+  const [productDetails, setProductDetails] = useState(null);
 
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
