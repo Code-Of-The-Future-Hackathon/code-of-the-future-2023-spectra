@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { OnboardingScreen } from '../screens/OnboardingScreen';
+import TabsNavigator from './TabsNavigator';
 
 const Stack = createStackNavigator();
 
@@ -9,8 +9,8 @@ function AppNavigator() {
   return (
     <Stack.Navigator initialRouteName="Onboarding">
       <Stack.Screen
-        name="Onboarding"
-        component={OnboardingScreen}
+        name="App"
+        component={TabsNavigator}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
