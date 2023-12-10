@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const TransportModeSelector = ({ currentMode, setTransportMode }) => {
   const modes = [
-    { type: 'Шофиране', icon: 'car-outline' },
-    { type: 'Вървене', icon: 'walk-outline' },
+    { type: 'driving', icon: 'car-outline' },
+    { type: 'walking', icon: 'walk-outline' },
   ];
 
   return (

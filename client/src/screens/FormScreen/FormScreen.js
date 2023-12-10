@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import axios from 'axios';
+import { OPENAI_API_KEY } from '@env';
 
 import AgeStep from './components/AgeStep';
 import AllergiesStep from './components/AllergiesStep';
@@ -12,8 +12,6 @@ import ChronicIllnessesStep from './components/ChronicIllnessesStep';
 import GenderStep from './components/GenderStep';
 
 import StepIndicator from './components/StepIndicator';
-
-const OPENAI_API_KEY = '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'; // Ideally, this should not be hardcoded
 
 export function FormScreen({ navigation }) {
   const [currentStep, setCurrentStep] = useState(1);
