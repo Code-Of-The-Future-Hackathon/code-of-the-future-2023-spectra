@@ -6,7 +6,7 @@ type Product = {
     name: string;
     formId: string;
     imgUrl?: string | null;
-    barcode: string;
+    barcode: string | null;
     sideEffects: string;
     storage: string;
     dosage: string;
@@ -56,6 +56,30 @@ export const getProduct = async (id: string): Promise<Product | null> => {
             updatedAt: true,
         },
     });
+};
+
+export const getProductByBarcode = async (barcode: string): Promise<Product | null> => {
+    console.log(barcode)
+    return await db.product.findFirst({
+        where: {
+            barcode: { equals: barcode },
+        },
+        select: {
+          id: true,
+          name: true,
+          formId: true,
+          imgUrl: true,
+          barcode: true,
+          sideEffects: true,
+          storage: true,
+          dosage: true,
+          ingredients: true,
+          contradictions: true,
+          categoryId: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
 };
 
 export const createProduct = async (product: Omit<Product, 'id'>): Promise<Product> => {

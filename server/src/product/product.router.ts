@@ -98,6 +98,58 @@ productRouter.get('/:id', async (request: Request, response: Response) => {
 
 /**
  * @swagger
+ * /products/barcode/{barcode}:
+ *   get:
+ *     summary: Get a single product by barcode
+ *     description: Retrieve a single product by its barcode.
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: barcode
+ *         description: Barcode of the product
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "1"
+ *               name: "Product A"
+ *               formId: "1"
+ *               sideEffects: "Some side effects"
+ *               storage: "Store in a cool, dry place"
+ *               dosage: "Take one tablet daily"
+ *               ingredients: ["Ingredient A", "Ingredient B"]
+ *               contradictions: "Do not take if allergic"
+ *               categoryId: "1"
+ *               createdAt: "2023-01-01T00:00:00Z"
+ *               updatedAt: "2023-01-01T00:00:00Z"
+ *       404:
+ *         description: Product not found
+ */
+productRouter.get('/barcode/:barcode', async (req: Request, res: Response) => {
+    const { barcode } = req.params;
+  
+    try {
+      const product = await productService.getProductByBarcode(barcode);
+  
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+  
+      res.json(product);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+
+/**
+ * @swagger
  * /products:
  *   post:
  *     summary: Create a product
