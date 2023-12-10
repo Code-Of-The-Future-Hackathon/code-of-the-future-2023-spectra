@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeStackNavigator } from './HomeStackNavigator';
 import { ScannerStackNavigator } from './ScannerStackNavigator';
+import { MapStackNavigator } from './MapStackNavigator';
 
 import Ionicons from 'react-native-vector-icons/Ionicons'; // Make sure you've installed this package
 
@@ -15,8 +16,8 @@ function TabsNavigator() {
             iconName = focused ? 'home' : 'home-outline';
         } else if (route.name === 'Scanner') {
             iconName = focused ? 'search' : 'search-outline';
-        } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline';
+        } else if (route.name === 'Map') {
+            iconName = focused ? 'map' : 'map-outline';
         } else if (route.name === 'Settings') {
             iconName = focused ? 'settings' : 'settings-outline';
         }
@@ -34,7 +35,7 @@ function TabsNavigator() {
         >
             <Tab.Screen name="Home" component={HomeStackNavigator} />
             <Tab.Screen name="Scanner" component={ScannerStackNavigator} />
-            <Tab.Screen name="Profile" component={HomeStackNavigator} />
+            <Tab.Screen name="Map" component={MapStackNavigator} />
             <Tab.Screen name="Settings" component={HomeStackNavigator} />
         </Tab.Navigator>
     );
