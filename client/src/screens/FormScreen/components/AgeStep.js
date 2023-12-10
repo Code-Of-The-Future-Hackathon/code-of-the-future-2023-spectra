@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const AgeStep = ({ formData, setFormData, onNext }) => {
   return (
@@ -8,7 +14,7 @@ const AgeStep = ({ formData, setFormData, onNext }) => {
       <TextInput
         style={styles.input}
         value={formData.age}
-        onChangeText={text => setFormData({ ...formData, age: text })}
+        onChangeText={(text) => setFormData({ ...formData, age: text })}
         keyboardType="numeric"
         placeholder="Въведете Вашата възраст"
       />

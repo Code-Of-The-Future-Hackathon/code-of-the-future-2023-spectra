@@ -1,48 +1,80 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
 const ChronicIllnessStep = ({ formData, setFormData, onNext }) => {
   const handleSelectChronicILLnesses = (option) => {
     if (option === 'no') {
       // If 'No' is selected, clear the chronicIllnessDetails
-      setFormData({ ...formData, chronicIllness: option, chronicIllnessDetails: '' });
+      setFormData({
+        ...formData,
+        chronicIllness: option,
+        chronicIllnessDetails: '',
+      });
     } else {
       // If 'Yes' is selected, only update the chronicIllness
       setFormData({ ...formData, chronicIllness: option });
     }
-  };  
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.question}>Страдате ли от хронични заболявания?</Text>
-      
+
       <View style={styles.optionsContainer}>
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.chronicIllness === 'yes' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.chronicIllness === 'yes' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectChronicILLnesses('yes')}
         >
-          <Text style={[styles.optionText, formData.chronicIllness === 'yes' && styles.selectedOptionText]}>Да</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.chronicIllness === 'yes' && styles.selectedOptionText,
+            ]}
+          >
+            Да
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.chronicIllness === 'no' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.chronicIllness === 'no' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectChronicILLnesses('no')}
         >
-          <Text style={[styles.optionText, formData.chronicIllness === 'no' && styles.selectedOptionText]}>Не</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.chronicIllness === 'no' && styles.selectedOptionText,
+            ]}
+          >
+            Не
+          </Text>
         </TouchableOpacity>
       </View>
-      
+
       {formData.chronicIllness === 'yes' && (
         <TextInput
           style={styles.input}
           value={formData.chronicIllnessDetails}
-          onChangeText={(text) => setFormData({ ...formData, chronicIllnessDetails: text })}
+          onChangeText={(text) =>
+            setFormData({ ...formData, chronicIllnessDetails: text })
+          }
           placeholder="Опишете хронични заболявания"
           multiline
           numberOfLines={4}
         />
       )}
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Нататък</Text>
       </TouchableOpacity>

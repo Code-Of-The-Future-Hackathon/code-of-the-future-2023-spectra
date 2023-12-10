@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Camera } from 'expo-camera';
 import { Dimensions, View, StyleSheet } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-// Calculate the best camera aspect ratio for the device
-const calculateAspectRatio = () => {
-  // Common camera aspect ratios
-  const commonRatios = ['4:3', '16:9'];
-  const deviceRatio = windowWidth / windowHeight;
-
-  // Find the aspect ratio that is closest to the device ratio
-  return commonRatios.reduce((prev, curr) =>
-    Math.abs(curr - deviceRatio) < Math.abs(prev - deviceRatio) ? curr : prev
-  );
-};
 
 const FocusLines = () => (
   <View style={styles.focusLinesContainer}>
@@ -27,47 +15,33 @@ const FocusLines = () => (
 );
 
 const CameraView = React.forwardRef(
-  ({ onBarCodeScanned, torchEnabled, scanned, showLines }, ref) => {
-    const [aspectRatio, setAspectRatio] = useState(calculateAspectRatio());
-
-    useEffect(() => {
-      const updateAspectRatio = () => {
-        setAspectRatio(calculateAspectRatio());
-      };
-
-      Dimensions.addEventListener('change', updateAspectRatio);
-      return () => Dimensions.removeEventListener('change', updateAspectRatio);
-    }, []);
-
-    return (
-      <View style={styles.container}>
-        <Camera
-          ref={ref}
-          onBarCodeScanned={scanned ? undefined : onBarCodeScanned}
-          flashMode={
-            torchEnabled
-              ? Camera.Constants.FlashMode.torch
-              : Camera.Constants.FlashMode.off
-          }
-          style={styles.cameraStyle}
-          ratio={aspectRatio}
-        />
-        {showLines && <FocusLines />}
-      </View>
-    );
-  }
+  ({ onBarCodeScanned, torchEnabled, scanned, showLines }, ref) => (
+    <View style={styles.container}>
+      <Camera
+        ref={ref}
+        onBarCodeScanned={scanned ? undefined : onBarCodeScanned}
+        flashMode={
+          torchEnabled
+            ? Camera.Constants.FlashMode.torch
+            : Camera.Constants.FlashMode.off
+        }
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}
+        ratio="16:9"
+      />
+      {showLines && <FocusLines />}
+    </View>
+  )
 );
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cameraStyle: {
-    width: windowWidth,
-    height: windowHeight,
-    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   focusLinesContainer: {
@@ -78,8 +52,8 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   focusCorner: {
-    width: 50,
-    height: 50,
+    width: 50, // Width of the corner piece
+    height: 50, // Height of the corner piece
     position: 'absolute',
   },
   topLeftCorner: {

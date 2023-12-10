@@ -35,7 +35,10 @@ export function FormScreen({ navigation }) {
     { label: 'Болки', completed: formData.pain !== '' },
     { label: 'Медицинска история', completed: formData.medicineHistory !== '' },
     { label: 'Алергии', completed: formData.allergies !== '' },
-    { label: 'Хронични заболявания', completed: formData.chronicIllness !== '' },
+    {
+      label: 'Хронични заболявания',
+      completed: formData.chronicIllness !== '',
+    },
     { label: 'Подробности', completed: formData.details !== '' },
     { label: 'Предпочитания', completed: formData.preferences !== '' },
   ];
@@ -47,22 +50,24 @@ export function FormScreen({ navigation }) {
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${OPENAI_API_KEY}`,
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             inputs: {
-              model: "gpt-4-1106-preview",
-              input: `The form data: ${JSON.stringify(formData)}. Provide a response based on this data.`,
+              model: 'gpt-4-1106-preview',
+              input: `The form data: ${JSON.stringify(
+                formData
+              )}. Provide a response based on this data.`,
             },
           }),
         }
       );
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       const advice = data.choices[0].message.content;
       console.log(advice); // Log the response
@@ -71,7 +76,7 @@ export function FormScreen({ navigation }) {
       console.error('Error communicating with OpenAI:', error);
     }
   };
-  
+
   const onStepPress = (stepNumber) => {
     // Function to navigate to the pressed step
     setCurrentStep(stepNumber);
@@ -92,26 +97,74 @@ export function FormScreen({ navigation }) {
         // Optionally handle the error, e.g., show an alert or a toast notification
       }
     }
-  };  
+  };
 
   const renderStepComponent = () => {
     switch (currentStep) {
       case 1:
-        return <GenderStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <GenderStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 2:
-        return <AgeStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <AgeStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 3:
-        return <PainStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <PainStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 4:
-        return <MedicineHistoryStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <MedicineHistoryStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 5:
-        return <AllergiesStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <AllergiesStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 6:
-        return <ChronicIllnessesStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <ChronicIllnessesStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 7:
-        return <DetailsStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <DetailsStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       case 8:
-        return <PreferencesStep formData={formData} setFormData={setFormData} onNext={handleNextStep} />;
+        return (
+          <PreferencesStep
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleNextStep}
+          />
+        );
       default:
         return <Text>Unknown step</Text>;
     }
@@ -120,12 +173,16 @@ export function FormScreen({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <StepIndicator steps={steps} currentStep={currentStep} onStepPress={onStepPress} />
+        <StepIndicator
+          steps={steps}
+          currentStep={currentStep}
+          onStepPress={onStepPress}
+        />
         {renderStepComponent()}
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

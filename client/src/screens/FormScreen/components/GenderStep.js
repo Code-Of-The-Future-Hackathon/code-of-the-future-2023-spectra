@@ -9,30 +9,60 @@ const GenderStep = ({ formData, setFormData, onNext }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.question}>Пол:</Text>
-      
+
       <View style={styles.optionsContainer}>
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.gender === 'male' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.gender === 'male' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectGender('male')}
         >
-          <Text style={[styles.optionText, formData.gender === 'male' && styles.selectedOptionText]}>Мъж</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.gender === 'male' && styles.selectedOptionText,
+            ]}
+          >
+            Мъж
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.gender === 'female' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.gender === 'female' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectGender('female')}
         >
-          <Text style={[styles.optionText, formData.gender === 'female' && styles.selectedOptionText]}>Жена</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.gender === 'female' && styles.selectedOptionText,
+            ]}
+          >
+            Жена
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.gender === 'other' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.gender === 'other' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectGender('other')}
         >
-          <Text style={[styles.optionText, formData.gender === 'other' && styles.selectedOptionText]}>Друг</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.gender === 'other' && styles.selectedOptionText,
+            ]}
+          >
+            Друг
+          </Text>
         </TouchableOpacity>
       </View>
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Нататък</Text>
       </TouchableOpacity>

@@ -42,16 +42,22 @@ function TabsNavigator() {
         tabBarStyle: styles.tabBar,
       })}
     >
-      <Tab.Screen name="Home" component={HomeStackNavigator} listeners={({ navigation, route }) => ({
-        focus: () => {
-          const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-          if (routeName === 'Form') {
-            navigation.setOptions({ tabBarStyle: { display: 'none' } });
-          } else {
-            navigation.setOptions({ tabBarStyle: { ...styles.tabBar, display: 'flex' } });
-          }
-        },
-      })} />
+      <Tab.Screen
+        name="Home"
+        component={HomeStackNavigator}
+        listeners={({ navigation, route }) => ({
+          focus: () => {
+            const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+            if (routeName === 'Form') {
+              navigation.setOptions({ tabBarStyle: { display: 'none' } });
+            } else {
+              navigation.setOptions({
+                tabBarStyle: { ...styles.tabBar, display: 'flex' },
+              });
+            }
+          },
+        })}
+      />
       <Tab.Screen name="Scanner" component={ScannerStackNavigator} />
       <Tab.Screen name="Map" component={MapStackNavigator} />
       <Tab.Screen name="Settings" component={SettingsStackNavigator} />

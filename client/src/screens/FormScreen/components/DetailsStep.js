@@ -1,11 +1,19 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const DetailsStep = ({ formData, setFormData, onNext }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>Опишете подробно симптомите си или допълнителна информация:</Text>
-      
+      <Text style={styles.question}>
+        Опишете подробно симптомите си или допълнителна информация:
+      </Text>
+
       <TextInput
         style={styles.input}
         value={formData.details}
@@ -14,7 +22,7 @@ const DetailsStep = ({ formData, setFormData, onNext }) => {
         multiline
         numberOfLines={4} // Adjust this as needed
       />
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Нататък</Text>
       </TouchableOpacity>

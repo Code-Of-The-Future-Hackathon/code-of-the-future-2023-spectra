@@ -1,12 +1,22 @@
 // MedicineHistoryStep.js
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const MedicineHistoryStep = ({ formData, setFormData, onNext }) => {
   const handleSelectMedicineHistory = (option) => {
     if (option === 'no') {
       // If 'No' is selected, clear the medicineDetails
-      setFormData({ ...formData, medicineHistory: option, medicineDetails: '' });
+      setFormData({
+        ...formData,
+        medicineHistory: option,
+        medicineDetails: '',
+      });
     } else {
       // If 'Yes' is selected, only update the medicineHistory
       setFormData({ ...formData, medicineHistory: option });
@@ -15,35 +25,59 @@ const MedicineHistoryStep = ({ formData, setFormData, onNext }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>Използвате ли в момента някакви медикаменти?</Text>
-      
+      <Text style={styles.question}>
+        Използвате ли в момента някакви медикаменти?
+      </Text>
+
       <View style={styles.optionsContainer}>
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.medicineHistory === 'yes' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.medicineHistory === 'yes' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectMedicineHistory('yes')}
         >
-          <Text style={[styles.optionText, formData.medicineHistory === 'yes' && styles.selectedOptionText]}>Да</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.medicineHistory === 'yes' && styles.selectedOptionText,
+            ]}
+          >
+            Да
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.medicineHistory === 'no' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.medicineHistory === 'no' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectMedicineHistory('no')}
         >
-          <Text style={[styles.optionText, formData.medicineHistory === 'no' && styles.selectedOptionText]}>Не</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.medicineHistory === 'no' && styles.selectedOptionText,
+            ]}
+          >
+            Не
+          </Text>
         </TouchableOpacity>
       </View>
-      
+
       {formData.medicineHistory === 'yes' && (
         <TextInput
           style={styles.input}
           value={formData.medicineDetails}
-          onChangeText={(text) => setFormData({ ...formData, medicineDetails: text })}
+          onChangeText={(text) =>
+            setFormData({ ...formData, medicineDetails: text })
+          }
           placeholder="Избройте медикаментите"
           multiline
           numberOfLines={4}
         />
       )}
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Нататък</Text>
       </TouchableOpacity>

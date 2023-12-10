@@ -1,11 +1,19 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const PreferencesStep = ({ formData, setFormData, onNext }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>Какви са вашите предпочитания за лечение?</Text>
-      
+      <Text style={styles.question}>
+        Какви са вашите предпочитания за лечение?
+      </Text>
+
       <TextInput
         style={styles.input}
         value={formData.preferences}
@@ -14,7 +22,7 @@ const PreferencesStep = ({ formData, setFormData, onNext }) => {
         multiline
         numberOfLines={4} // Adjust this as needed
       />
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Завърши</Text>
       </TouchableOpacity>

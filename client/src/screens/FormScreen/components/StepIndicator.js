@@ -1,5 +1,12 @@
 import React, { useRef } from 'react';
-import { View, ScrollView, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width } = Dimensions.get('window');
@@ -13,21 +20,37 @@ const StepIndicator = ({ steps, currentStep, onStepPress }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView 
+      <ScrollView
         ref={scrollViewRef}
-        horizontal 
-        showsHorizontalScrollIndicator={false} 
+        horizontal
+        showsHorizontalScrollIndicator={false}
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
       >
         {steps.map((step, index) => (
-          <TouchableOpacity 
-            key={step.label} 
-            style={[styles.step, currentStep === index + 1 && styles.activeStep]}
+          <TouchableOpacity
+            key={step.label}
+            style={[
+              styles.step,
+              currentStep === index + 1 && styles.activeStep,
+            ]}
             onPress={() => onStepPress(index + 1)}
           >
-            <Text style={[styles.stepLabel, currentStep !== index + 1 && styles.inactiveStepLabel]}>{step.label}</Text>
-            {step.completed && <Icon name="check" size={14} color={currentStep === index + 1 ? "#fff" : "#3CD539"} />}
+            <Text
+              style={[
+                styles.stepLabel,
+                currentStep !== index + 1 && styles.inactiveStepLabel,
+              ]}
+            >
+              {step.label}
+            </Text>
+            {step.completed && (
+              <Icon
+                name="check"
+                size={14}
+                color={currentStep === index + 1 ? '#fff' : '#3CD539'}
+              />
+            )}
           </TouchableOpacity>
         ))}
       </ScrollView>

@@ -23,7 +23,7 @@ export const SettingsStackNavigator = () => {
         component={MyProfileScreen}
         options={{ headerShown: false }}
       />
-       <SettingsStack.Screen
+      <SettingsStack.Screen
         name="EditName"
         component={EditNameScreen}
         options={{ headerShown: false }}

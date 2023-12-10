@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const PainStep = ({ formData, setFormData, onNext }) => {
   const handleSelectPain = (option) => {
@@ -10,41 +16,63 @@ const PainStep = ({ formData, setFormData, onNext }) => {
       // If 'Yes' is selected, only update the chronicIllness
       setFormData({ ...formData, pain: option });
     }
-  };  
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.question}>Изпитвате ли болка в момента?</Text>
-      
+
       <View style={styles.optionsContainer}>
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.pain === 'yes' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.pain === 'yes' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectPain('yes')}
         >
-          <Text style={[styles.optionText, formData.pain === 'yes' && styles.selectedOptionText]}>Да</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.pain === 'yes' && styles.selectedOptionText,
+            ]}
+          >
+            Да
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.pain === 'no' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.pain === 'no' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectPain('no')}
         >
-          <Text style={[styles.optionText, formData.pain === 'no' && styles.selectedOptionText]}>Не</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.pain === 'no' && styles.selectedOptionText,
+            ]}
+          >
+            Не
+          </Text>
         </TouchableOpacity>
       </View>
-      
+
       {formData.pain === 'yes' && (
         <>
           <TextInput
             style={styles.input}
             value={formData.painDescription}
-            onChangeText={(text) => setFormData({ ...formData, painDescription: text })}
+            onChangeText={(text) =>
+              setFormData({ ...formData, painDescription: text })
+            }
             placeholder="Опишете болката си"
             multiline
             numberOfLines={4}
           />
         </>
       )}
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Нататък</Text>
       </TouchableOpacity>

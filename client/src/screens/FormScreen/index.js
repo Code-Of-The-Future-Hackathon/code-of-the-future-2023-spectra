@@ -1,1 +1,1 @@
-export * from './FormScreen'
+export * from './FormScreen';

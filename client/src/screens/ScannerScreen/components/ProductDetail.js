@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingTop: 30, // Padding at the top for draggableIndicator
-    paddingBottom: 30,
+    paddingBottom: 50,
     paddingHorizontal: 10,
     alignItems: 'flex-start',
     zIndex: 2,

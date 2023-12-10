@@ -1,6 +1,12 @@
 // AllergiesStep.js
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const AllergiesStep = ({ formData, setFormData, onNext }) => {
   const handleSelectAllergies = (option) => {
@@ -11,39 +17,61 @@ const AllergiesStep = ({ formData, setFormData, onNext }) => {
       // If 'Yes' is selected, only update the allergies field
       setFormData({ ...formData, allergies: option });
     }
-  };  
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.question}>Имате ли алергии?</Text>
-      
+
       <View style={styles.optionsContainer}>
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.allergies === 'yes' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.allergies === 'yes' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectAllergies('yes')}
         >
-          <Text style={[styles.optionText, formData.allergies === 'yes' && styles.selectedOptionText]}>Да</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.allergies === 'yes' && styles.selectedOptionText,
+            ]}
+          >
+            Да
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.optionButton, formData.allergies === 'no' && styles.selectedOption]}
+        <TouchableOpacity
+          style={[
+            styles.optionButton,
+            formData.allergies === 'no' && styles.selectedOption,
+          ]}
           onPress={() => handleSelectAllergies('no')}
         >
-          <Text style={[styles.optionText, formData.allergies === 'no' && styles.selectedOptionText]}>Не</Text>
+          <Text
+            style={[
+              styles.optionText,
+              formData.allergies === 'no' && styles.selectedOptionText,
+            ]}
+          >
+            Не
+          </Text>
         </TouchableOpacity>
       </View>
-      
+
       {formData.allergies === 'yes' && (
         <TextInput
           style={styles.input}
           value={formData.allergiesDetails}
-          onChangeText={(text) => setFormData({ ...formData, allergiesDetails: text })}
+          onChangeText={(text) =>
+            setFormData({ ...formData, allergiesDetails: text })
+          }
           placeholder="Опишете алергиите"
           multiline
           numberOfLines={4}
         />
       )}
-      
+
       <TouchableOpacity style={styles.nextButton} onPress={onNext}>
         <Text style={styles.nextButtonText}>Нататък</Text>
       </TouchableOpacity>

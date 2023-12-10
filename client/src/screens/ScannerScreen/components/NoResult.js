@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 10,
     zIndex: 2,
-    height: 220,
+    height: 300,
   },
   draggableContainer: {
     width: '100%', // Take the full width of the container

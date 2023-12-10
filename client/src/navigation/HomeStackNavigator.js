@@ -20,7 +20,7 @@ export const HomeStackNavigator = () => {
         component={FormScreen}
         options={({ route }) => ({
           headerShown: false,
-          tabBarVisible: route.name === "Form" ? false : true, // Hide the tab bar on FormScreen
+          tabBarVisible: route.name === 'Form' ? false : true, // Hide the tab bar on FormScreen
         })}
       />
     </HomeStack.Navigator>
