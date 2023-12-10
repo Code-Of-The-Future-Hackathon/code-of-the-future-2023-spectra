@@ -10,8 +10,7 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
-                https: 'https://spectra-webapi.azurewebsites.net/'
+                url: 'https://spectra-webapi.azurewebsites.net/'
             },
         ],
     },
