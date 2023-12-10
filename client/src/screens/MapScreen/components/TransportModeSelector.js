@@ -20,8 +20,19 @@ const TransportModeSelector = ({ currentMode, setTransportMode }) => {
           onPress={() => setTransportMode(type)}
           accessibilityLabel={`${type} mode`}
         >
-          <Icon name={icon} size={20} color={currentMode === type ? 'white' : '#AB72ED'} />
-          <Text style={[styles.buttonText, currentMode === type ? styles.textSelected : styles.textUnselected]}>
+          <Icon
+            name={icon}
+            size={20}
+            color={currentMode === type ? 'white' : '#AB72ED'}
+          />
+          <Text
+            style={[
+              styles.buttonText,
+              currentMode === type
+                ? styles.textSelected
+                : styles.textUnselected,
+            ]}
+          >
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </Text>
         </TouchableOpacity>

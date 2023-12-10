@@ -25,7 +25,6 @@ export function AccountScreen({ navigation }) {
 
   return (
     <ScrollView style={styles.scrollViewContainer}>
-
       <AccountTitle />
 
       <Profile />

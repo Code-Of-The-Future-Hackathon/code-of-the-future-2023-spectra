@@ -12,9 +12,9 @@ const calculateAspectRatio = () => {
   const deviceRatio = windowWidth / windowHeight;
 
   // Find the aspect ratio that is closest to the device ratio
-  return commonRatios.reduce((prev, curr) => (
+  return commonRatios.reduce((prev, curr) =>
     Math.abs(curr - deviceRatio) < Math.abs(prev - deviceRatio) ? curr : prev
-  ));
+  );
 };
 
 const FocusLines = () => (

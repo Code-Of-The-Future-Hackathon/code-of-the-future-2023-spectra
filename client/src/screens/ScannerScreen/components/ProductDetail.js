@@ -11,12 +11,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const ProductDetail = ({
-  name,
-  imgUrl,
-  onNavigate,
-  onClose,
-}) => {
+const ProductDetail = ({ name, imgUrl, onNavigate, onClose }) => {
   const slideAnim = useRef(
     new Animated.Value(Dimensions.get('window').height)
   ).current; // Start off the bottom of the screen
@@ -140,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'grey',
     marginBottom: 8,
-  }
+  },
 });
 
 export default ProductDetail;

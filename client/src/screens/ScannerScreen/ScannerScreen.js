@@ -11,7 +11,7 @@ import {
   Image,
   Animated,
   Text,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -79,13 +79,13 @@ export function ScannerScreen({ navigation }) {
       console.log(`Window dimensions: ${window.width}x${window.height}`);
       console.log(`Screen dimensions: ${screen.width}x${screen.height}`);
     };
-  
+
     // Subscribe to dimension changes
     const subscription = Dimensions.addEventListener('change', handler);
-  
+
     // Return a cleanup function that removes the event listener
     return () => subscription.remove();
-  }, []);  
+  }, []);
 
   const handlePress = () => {
     if (isButtonDisabled) return;
@@ -496,9 +496,9 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'flex-end', 
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    zIndex: 5, 
+    zIndex: 5,
   },
   fullImage: {
     position: 'absolute',
@@ -511,11 +511,11 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   removeImageButton: {
-    zIndex: 10, 
-    padding: 20, 
-    backgroundColor: 'white', 
-    marginBottom: 40, 
-    borderRadius: 10, 
+    zIndex: 10,
+    padding: 20,
+    backgroundColor: 'white',
+    marginBottom: 40,
+    borderRadius: 10,
   },
   overlay: {
     position: 'absolute',

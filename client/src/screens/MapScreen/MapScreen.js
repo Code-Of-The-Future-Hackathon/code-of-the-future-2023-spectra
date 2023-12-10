@@ -28,26 +28,76 @@ export function MapScreen({ route }) {
   const currentStep = routeSteps.length > 0 ? routeSteps[0].instruction : '';
 
   const destinationPoints = [
-    { latitude: 42.45604, longitude: 27.412063, label: 'Аптека Живот', openAt: '08:00', closeAt: '20:00' },
-    { latitude: 42.461178, longitude: 27.406498, label: 'Вита Фарма', openAt: '08:00', closeAt: '20:00' },
-    { latitude: 42.464351, longitude: 27.402829, label: 'Здравец Аптека', openAt: '08:00', closeAt: '20:00' },
-    { latitude: 42.448614, longitude: 27.413729, label: 'Билкова Аптека', openAt: '08:00', closeAt: '20:00'},
-    { latitude: 42.453224, longitude: 27.421175, label: 'Фармация Здраве', openAt: '08:00', closeAt: '20:00' },
-    { latitude: 42.461994, longitude: 27.420875, label: 'Лекарска Грижа', openAt: '08:00', closeAt: '20:00' },
-    { latitude: 42.458226, longitude: 27.423364, label: 'Аптека Здраве и Красота', openAt: '08:00', closeAt: '20:00' },
-    { latitude: 42.459809, longitude: 27.412249, label: 'Сърцевина Фарма', openAt: '08:00', closeAt: '20:00' },
+    {
+      latitude: 42.45604,
+      longitude: 27.412063,
+      label: 'Аптека Живот',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.461178,
+      longitude: 27.406498,
+      label: 'Вита Фарма',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.464351,
+      longitude: 27.402829,
+      label: 'Здравец Аптека',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.448614,
+      longitude: 27.413729,
+      label: 'Билкова Аптека',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.453224,
+      longitude: 27.421175,
+      label: 'Фармация Здраве',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.461994,
+      longitude: 27.420875,
+      label: 'Лекарска Грижа',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.458226,
+      longitude: 27.423364,
+      label: 'Аптека Здраве и Красота',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
+    {
+      latitude: 42.459809,
+      longitude: 27.412249,
+      label: 'Сърцевина Фарма',
+      openAt: '08:00',
+      closeAt: '20:00',
+    },
   ];
 
   const locationTitle =
     selectedDestinationIndex >= 0 &&
-      selectedDestinationIndex < destinationPoints.length
+    selectedDestinationIndex < destinationPoints.length
       ? destinationPoints[selectedDestinationIndex].label
       : 'Изберете си аптека';
 
   const locationHours =
     selectedDestinationIndex >= 0 &&
-      selectedDestinationIndex < destinationPoints.length
-      ? destinationPoints[selectedDestinationIndex].openAt + ' - ' + destinationPoints[selectedDestinationIndex].closeAt
+    selectedDestinationIndex < destinationPoints.length
+      ? destinationPoints[selectedDestinationIndex].openAt +
+        ' - ' +
+        destinationPoints[selectedDestinationIndex].closeAt
       : '';
 
   const cancelNavigation = () => {
