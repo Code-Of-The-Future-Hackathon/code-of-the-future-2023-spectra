@@ -27,7 +27,7 @@ jobs:
           npm i
           npm install typescript
           npx tsc
-          cp node_modules ./dist
+          cp -r node_modules ./dist
 
 
       - name: Zip artifact for deployment
